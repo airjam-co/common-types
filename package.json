@@ -1,10 +1,10 @@
 {
-  "name": "@airjam/table-view",
+  "name": "@types/airjam",
   "version": "0.0.2",
   "license": "Apache-2.0",
   "author": "airjamadmin",
-  "description": "Table view component library for AirJam",
-  "homepage": "https://github.com/airjam-co/table-view/",
+  "description": "Shared component types library for AirJam",
+  "homepage": "https://github.com/airjam-co/common-types/",
   "keywords": [
     "TypeScript",
     "JavaScript",
@@ -12,7 +12,7 @@
     "typescript-library",
     "javascript-library"
   ],
-  "umdName": "sampleLibrary",
+  "umdName": "commonTypes",
   "libraryFile": "library",
   "main": "dist/library.js",
   "module": "dist/library.es.js",
@@ -22,10 +22,10 @@
   ],
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/airjam-co/table-view.git"
+    "url": "git+https://github.com/airjam-co/common-types.git"
   },
   "bugs": {
-    "url": "https://github.com/airjam-co/table-view/issues"
+    "url": "https://github.com/airjam-co/common-types/issues"
   },
   "scripts": {
     "build": "rollup -c rollup.config.ts",
@@ -55,8 +55,5 @@
     "terser": "^5.9.0",
     "ts-jest": "^27.0.5",
     "typescript": "^4.4.3"
-  },
-  "dependencies": {
-    "chart.js": "^4.2.0"
   }
 }
