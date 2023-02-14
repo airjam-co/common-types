@@ -37,13 +37,13 @@ npm install @airjam/common-types
 ### TypeScript
 
 ```typescript
-import tableView from "@airjam/common-types";
+import * from "@airjam/common-types";
 ```
 
 ### JavaScript
 
 ```javascript
-var tableView = require("@airjam/common-types");
+var commonTypes = require("@airjam/common-types");
 ```
 
 ## package.json
