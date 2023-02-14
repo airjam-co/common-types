@@ -7,6 +7,9 @@ var ViewType;
     ViewType["Board"] = "view_board";
     ViewType["List"] = "view_list";
     ViewType["Feed"] = "view_feed";
+    ViewType["Gallery"] = "view_gallery";
+    ViewType["Graph"] = "view_graph";
+    ViewType["Table"] = "view_table";
 })(ViewType || (ViewType = {}));
 var PaginationStyle;
 (function (PaginationStyle) {
@@ -14,13 +17,6 @@ var PaginationStyle;
     PaginationStyle["InfiniteScroll"] = "pagination_infinite";
     PaginationStyle["NoPagination"] = "pagination_none";
 })(PaginationStyle || (PaginationStyle = {}));
-var TableViewStyle;
-(function (TableViewStyle) {
-    TableViewStyle["List"] = "table_view_list";
-    TableViewStyle["Gallery"] = "table_view_gallery";
-    TableViewStyle["Graph"] = "table_view_graph";
-    TableViewStyle["Table"] = "table_view_table";
-})(TableViewStyle || (TableViewStyle = {}));
 var DataSourceFieldType;
 (function (DataSourceFieldType) {
     DataSourceFieldType["Text"] = "text";
@@ -32,5 +28,5 @@ var DataSourceFieldType;
     DataSourceFieldType["Email"] = "email";
 })(DataSourceFieldType || (DataSourceFieldType = {}));
 
-export { DataSourceFieldType, PaginationStyle, TableViewStyle, ViewComponentType, ViewType };
+export { DataSourceFieldType, PaginationStyle, ViewComponentType, ViewType };
 //# sourceMappingURL=library.es.js.map

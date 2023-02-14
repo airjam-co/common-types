@@ -13,6 +13,9 @@
         ViewType["Board"] = "view_board";
         ViewType["List"] = "view_list";
         ViewType["Feed"] = "view_feed";
+        ViewType["Gallery"] = "view_gallery";
+        ViewType["Graph"] = "view_graph";
+        ViewType["Table"] = "view_table";
     })(exports.ViewType || (exports.ViewType = {}));
     exports.PaginationStyle = void 0;
     (function (PaginationStyle) {
@@ -20,13 +23,6 @@
         PaginationStyle["InfiniteScroll"] = "pagination_infinite";
         PaginationStyle["NoPagination"] = "pagination_none";
     })(exports.PaginationStyle || (exports.PaginationStyle = {}));
-    exports.TableViewStyle = void 0;
-    (function (TableViewStyle) {
-        TableViewStyle["List"] = "table_view_list";
-        TableViewStyle["Gallery"] = "table_view_gallery";
-        TableViewStyle["Graph"] = "table_view_graph";
-        TableViewStyle["Table"] = "table_view_table";
-    })(exports.TableViewStyle || (exports.TableViewStyle = {}));
     exports.DataSourceFieldType = void 0;
     (function (DataSourceFieldType) {
         DataSourceFieldType["Text"] = "text";
