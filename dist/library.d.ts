@@ -9,7 +9,6 @@ export declare enum ViewComponentType {
 export declare enum ViewType {
     Board = "view_board",
     List = "view_list",
-    Feed = "view_feed",
     Gallery = "view_gallery",
     Graph = "view_graph",
     Table = "view_table"
@@ -27,6 +26,10 @@ export declare enum DataSourceFieldType {
     Percent = "percent",
     Link = "link",
     Email = "email"
+}
+export declare enum SortBy {
+    RECENT = "recent",
+    OLDEST = "oldest"
 }
 export interface DataSourceField {
     columnIdx: number;
@@ -59,7 +62,7 @@ export interface ComponentTemplate extends UnifiedModel {
     version: number;
     previewImageUrls: string[];
     description: string;
-    visibility: ("PUBLIC" | "PRIVATE" | "PAID");
+    visibility: "PUBLIC" | "PRIVATE" | "PAID";
     pages: ("LIST" | "DETAIL" | "EDIT" | "CREATE")[];
     properties: {
         [id: string]: TemplateProperty;
@@ -83,6 +86,7 @@ export interface TemplateStyle extends UnifiedModel {
     previewImageUrls: string[];
     description: string;
     visibility: ("PUBLIC" | "PRIVATE" | "PAID");
+    colorTheme: string[];
     properties: {
         [id: string]: TemplateProperty;
     };
@@ -119,3 +123,9 @@ export interface dataField {
     display_as: DataSourceFieldType;
     raw_value: string;
 }
+export declare const template_cache: {
+    [id: string]: ComponentTemplate;
+};
+export declare const style_cache: {
+    [id: string]: TemplateStyle;
+};
