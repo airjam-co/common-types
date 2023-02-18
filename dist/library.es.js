@@ -31,6 +31,59 @@ var SortBy;
     SortBy["RECENT"] = "recent";
     SortBy["OLDEST"] = "oldest";
 })(SortBy || (SortBy = {}));
+function formattedField(data, displayType) {
+    switch (displayType) {
+        case DataSourceFieldType.Number:
+            return Number(data).toString();
+        case DataSourceFieldType.Percent:
+            return Number(data).toLocaleString(undefined, { style: "percent", minimumFractionDigits: 2 });
+        case DataSourceFieldType.DateTime:
+            var newDate = new Date(data);
+            return newDate.toLocaleDateString();
+        case DataSourceFieldType.Currency:
+            var currencyFractionDigits = new Intl.NumberFormat(undefined, {
+                style: "currency",
+                currency: "USD", // todo: somehow make this smarter
+            }).resolvedOptions().maximumFractionDigits;
+            var currencyString = Number(data).toLocaleString(undefined, {
+                maximumFractionDigits: currencyFractionDigits
+            });
+            return currencyString;
+        case DataSourceFieldType.Link:
+        case DataSourceFieldType.Email:
+        case DataSourceFieldType.Text:
+        default:
+            return data;
+    }
+}
+function inferDataSourceFieldType(data) {
+    // in the order of uniqueness -> Email, Link, DateTime, (Currency, Percent, Number), Text
+    if (isEmail(data))
+        return DataSourceFieldType.Email;
+    if (isUri(data))
+        return DataSourceFieldType.Link;
+    if (isDate(data))
+        return DataSourceFieldType.DateTime;
+    // currency and percent are not inferrable
+    if (!isNaN(parseFloat(data)))
+        return DataSourceFieldType.Number;
+    return DataSourceFieldType.Text;
+}
+function isEmail(email) {
+    var re = /^(([^<>()[\]\.,;:\s@\"]+(\.[^<>()[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i;
+    return re.test(email);
+}
+function isUri(uriStr) {
+    try {
+        return Boolean(new URL(uriStr));
+    }
+    catch (_a) {
+        return false;
+    }
+}
+function isDate(dateStr) {
+    return !isNaN(new Date(dateStr).getDate());
+}
 var template_cache = {
     "card_list": {
         _id: "",
@@ -338,5 +391,5 @@ var style_cache = {
     }
 };
 
-export { DataSourceFieldType, PaginationStyle, SortBy, ViewComponentType, ViewType, style_cache, template_cache };
+export { DataSourceFieldType, PaginationStyle, SortBy, ViewComponentType, ViewType, formattedField, inferDataSourceFieldType, isDate, isEmail, isUri, style_cache, template_cache };
 //# sourceMappingURL=library.es.js.map

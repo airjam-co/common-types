@@ -37,6 +37,59 @@
         SortBy["RECENT"] = "recent";
         SortBy["OLDEST"] = "oldest";
     })(exports.SortBy || (exports.SortBy = {}));
+    function formattedField(data, displayType) {
+        switch (displayType) {
+            case exports.DataSourceFieldType.Number:
+                return Number(data).toString();
+            case exports.DataSourceFieldType.Percent:
+                return Number(data).toLocaleString(undefined, { style: "percent", minimumFractionDigits: 2 });
+            case exports.DataSourceFieldType.DateTime:
+                var newDate = new Date(data);
+                return newDate.toLocaleDateString();
+            case exports.DataSourceFieldType.Currency:
+                var currencyFractionDigits = new Intl.NumberFormat(undefined, {
+                    style: "currency",
+                    currency: "USD", // todo: somehow make this smarter
+                }).resolvedOptions().maximumFractionDigits;
+                var currencyString = Number(data).toLocaleString(undefined, {
+                    maximumFractionDigits: currencyFractionDigits
+                });
+                return currencyString;
+            case exports.DataSourceFieldType.Link:
+            case exports.DataSourceFieldType.Email:
+            case exports.DataSourceFieldType.Text:
+            default:
+                return data;
+        }
+    }
+    function inferDataSourceFieldType(data) {
+        // in the order of uniqueness -> Email, Link, DateTime, (Currency, Percent, Number), Text
+        if (isEmail(data))
+            return exports.DataSourceFieldType.Email;
+        if (isUri(data))
+            return exports.DataSourceFieldType.Link;
+        if (isDate(data))
+            return exports.DataSourceFieldType.DateTime;
+        // currency and percent are not inferrable
+        if (!isNaN(parseFloat(data)))
+            return exports.DataSourceFieldType.Number;
+        return exports.DataSourceFieldType.Text;
+    }
+    function isEmail(email) {
+        var re = /^(([^<>()[\]\.,;:\s@\"]+(\.[^<>()[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i;
+        return re.test(email);
+    }
+    function isUri(uriStr) {
+        try {
+            return Boolean(new URL(uriStr));
+        }
+        catch (_a) {
+            return false;
+        }
+    }
+    function isDate(dateStr) {
+        return !isNaN(new Date(dateStr).getDate());
+    }
     var template_cache = {
         "card_list": {
             _id: "",
@@ -344,6 +397,11 @@
         }
     };
 
+    exports.formattedField = formattedField;
+    exports.inferDataSourceFieldType = inferDataSourceFieldType;
+    exports.isDate = isDate;
+    exports.isEmail = isEmail;
+    exports.isUri = isUri;
     exports.style_cache = style_cache;
     exports.template_cache = template_cache;
 

@@ -123,6 +123,11 @@ export interface dataField {
     display_as: DataSourceFieldType;
     raw_value: string;
 }
+export declare function formattedField(data: string, displayType: DataSourceFieldType): string;
+export declare function inferDataSourceFieldType(data: string): DataSourceFieldType;
+export declare function isEmail(email: string): boolean;
+export declare function isUri(uriStr: string): boolean;
+export declare function isDate(dateStr: string): boolean;
 export declare const template_cache: {
     [id: string]: ComponentTemplate;
 };

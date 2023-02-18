@@ -117,6 +117,60 @@ export interface dataField {
     raw_value: string
 }
 
+export function formattedField(data: string, displayType: DataSourceFieldType): string {
+    switch (displayType) {
+        case DataSourceFieldType.Number:
+            return Number(data).toString();
+        case DataSourceFieldType.Percent:
+            return Number(data).toLocaleString(undefined, {style: "percent", minimumFractionDigits: 2});
+        case DataSourceFieldType.DateTime:
+            const newDate = new Date(data);
+            return newDate.toLocaleDateString();
+        case DataSourceFieldType.Currency:
+            const currencyFractionDigits = new Intl.NumberFormat(undefined, {
+                style: "currency",
+                currency: "USD", // todo: somehow make this smarter
+            }).resolvedOptions().maximumFractionDigits;
+            const currencyString = Number(data).toLocaleString(undefined, {
+                maximumFractionDigits: currencyFractionDigits
+            });
+            return currencyString;
+        case DataSourceFieldType.Link:
+        case DataSourceFieldType.Email:
+        case DataSourceFieldType.Text:
+        default:
+            return data;
+    }
+}
+
+export function inferDataSourceFieldType(data: string): DataSourceFieldType {
+    // in the order of uniqueness -> Email, Link, DateTime, (Currency, Percent, Number), Text
+    if (isEmail(data)) return DataSourceFieldType.Email;
+    if (isUri(data)) return DataSourceFieldType.Link;
+    if (isDate(data)) return DataSourceFieldType.DateTime;
+    // currency and percent are not inferrable
+    if (!isNaN(parseFloat(data))) return DataSourceFieldType.Number;
+    return DataSourceFieldType.Text;
+}
+
+export function isEmail(email: string): boolean {
+    const re: RegExp = /^(([^<>()[\]\.,;:\s@\"]+(\.[^<>()[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i;
+    return re.test(email);
+}
+
+export function isUri(uriStr: string): boolean {
+    try {
+        return Boolean(new URL(uriStr));
+    }
+    catch {
+        return false;
+    }
+}
+
+export function isDate(dateStr: string): boolean {
+    return !isNaN(new Date(dateStr).getDate());
+}
+
 export const template_cache: {[id: string]: ComponentTemplate} = {
     "card_list": {
         _id: "",
@@ -315,7 +369,7 @@ export const style_cache: {[id: string]: TemplateStyle} = {
         _id: "",
         shortId: "muted",
         name: "Muted",
-        compatibleWith: ["barchart"], // compatible templates
+        compatibleWith: ["barchart", "piechart", "linechart"], // compatible templates
         ownerId: "",
         version: 1,
         previewImageUrls: [],
@@ -348,7 +402,7 @@ export const style_cache: {[id: string]: TemplateStyle} = {
         _id: "",
         shortId: "earthy",
         name: "Earthy",
-        compatibleWith: ["barchart"], // compatible templates
+        compatibleWith: ["barchart", "piechart", "linechart"], // compatible templates
         ownerId: "",
         version: 1,
         previewImageUrls: [],
@@ -381,7 +435,7 @@ export const style_cache: {[id: string]: TemplateStyle} = {
         _id: "",
         shortId: "outback",
         name: "Outback",
-        compatibleWith: ["barchart"], // compatible templates
+        compatibleWith: ["barchart", "piechart", "linechart"], // compatible templates
         ownerId: "",
         version: 1,
         previewImageUrls: [],
