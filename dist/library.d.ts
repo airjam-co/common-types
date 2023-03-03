@@ -7,7 +7,6 @@ export declare enum ViewComponentType {
     TableView = "table_view"
 }
 export declare enum ViewType {
-    Board = "view_board",
     List = "view_list",
     Gallery = "view_gallery",
     Graph = "view_graph",
