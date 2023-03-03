@@ -180,7 +180,7 @@ export const template_cache: {[id: string]: ComponentTemplate} = {
         name: "Card List",
         ownerId: "",
         version: 1,
-        previewImageUrls: [],
+        previewImageUrls: ["/images/templates/card_list.png"],
         description: "This template displays each row of data as a card, with a title, an image, and a link to redirect to.",
         visibility: "PUBLIC",
         pages: ["LIST"],
@@ -225,7 +225,7 @@ export const template_cache: {[id: string]: ComponentTemplate} = {
         name: "Table",
         ownerId: "",
         version: 1,
-        previewImageUrls: [],
+        previewImageUrls: ["/images/templates/table.png"],
         description: "Table template shows your data in a tabular format.",
         visibility: "PUBLIC",
         pages: ["LIST"],
@@ -234,16 +234,10 @@ export const template_cache: {[id: string]: ComponentTemplate} = {
         properties: {
             caption: {
                 name: "Caption",
-                description: "Use component's title as a caption",
+                description: "Use component's title as a caption for the table",
                 default: false,
                 type: "BOOLEAN"
-            },
-            striped: {
-                name: "Striped rows",
-                description: "Check to make the background colors of rows alternate",
-                default: true,
-                type: "BOOLEAN"
-            },
+            }
         },
         componentProperties: {
         }
@@ -256,7 +250,7 @@ export const template_cache: {[id: string]: ComponentTemplate} = {
         name: "Bar Chart",
         ownerId: "",
         version: 1,
-        previewImageUrls: [],
+        previewImageUrls: ["/images/templates/barchart.png"],
         description: "The bar chart template assumes each column in your data as a bar. Also, the data must be in numeric format to work.",
         visibility: "PUBLIC",
         pages: ["LIST"],
@@ -264,8 +258,8 @@ export const template_cache: {[id: string]: ComponentTemplate} = {
         templateFields: {},
         properties: {
             useFirstColumnAsLabels: {
-                name: "First Column is Labels",
-                description: "Use first column as labels",
+                name: "Use First Column as Label",
+                description: "Use first column of the data as labels for each dataset",
                 default: true,
                 type: "BOOLEAN"
             },
@@ -276,8 +270,8 @@ export const template_cache: {[id: string]: ComponentTemplate} = {
                 type: "BOOLEAN"
             },
             showVertically: {
-                name: "ShowVertically",
-                description: "Display graph vertically, rather than horizontally",
+                name: "Show Vertically",
+                description: "Chart graph in vertical orientation",
                 default: false,
                 type: "BOOLEAN"
             }
@@ -294,7 +288,7 @@ export const template_cache: {[id: string]: ComponentTemplate} = {
         name: "Pie Chart",
         ownerId: "",
         version: 1,
-        previewImageUrls: [],
+        previewImageUrls: ["/images/templates/piechart.png"],
         description: "Pie chart template uses the first two rows of your data to visualize the chart and its labels. Please note, data must be in numeric format to work.",
         visibility: "PUBLIC",
         pages: ["LIST"],
@@ -302,8 +296,8 @@ export const template_cache: {[id: string]: ComponentTemplate} = {
         templateFields: {},
         properties: {
             useFirstColumnAsLabels: {
-                name: "First Column is Labels",
-                description: "Use first column as labels",
+                name: "Use First Column as Label",
+                description: "Use first column of the data as labels for each dataset",
                 default: true,
                 type: "BOOLEAN"
             },
@@ -311,12 +305,6 @@ export const template_cache: {[id: string]: ComponentTemplate} = {
                 name: "Show Legends",
                 description: "Show legends of labels in the graph",
                 default: true,
-                type: "BOOLEAN"
-            },
-            showVertically: {
-                name: "ShowVertically",
-                description: "Display graph vertically, rather than horizontally",
-                default: false,
                 type: "BOOLEAN"
             }
         },
@@ -332,7 +320,7 @@ export const template_cache: {[id: string]: ComponentTemplate} = {
         name: "Line Chart",
         ownerId: "",
         version: 1,
-        previewImageUrls: [],
+        previewImageUrls: ["/images/templates/linechart.png"],
         description: "Line chart template requires all non-label data to be in numeric format to work.",
         visibility: "PUBLIC",
         pages: ["LIST"],
@@ -340,8 +328,8 @@ export const template_cache: {[id: string]: ComponentTemplate} = {
         templateFields: {},
         properties: {
             useFirstColumnAsLabels: {
-                name: "First Column is Labels",
-                description: "Use first column as labels",
+                name: "Use First Column as Label",
+                description: "Use first column of the data as labels for each dataset",
                 default: true,
                 type: "BOOLEAN"
             },
@@ -352,8 +340,8 @@ export const template_cache: {[id: string]: ComponentTemplate} = {
                 type: "BOOLEAN"
             },
             showVertically: {
-                name: "ShowVertically",
-                description: "Display graph vertically, rather than horizontally",
+                name: "Show Vertically",
+                description: "Chart graph in vertical orientation",
                 default: false,
                 type: "BOOLEAN"
             }
@@ -370,7 +358,7 @@ export const template_cache: {[id: string]: ComponentTemplate} = {
         name: "Formal Menu",
         ownerId: "",
         version: 1,
-        previewImageUrls: [],
+        previewImageUrls: ["/images/templates/fine_dining_menu.png"],
         description: "This template displays data as a menu / catalog of items with prices.",
         visibility: "PUBLIC",
         pages: ["LIST"],
@@ -405,7 +393,7 @@ export const template_cache: {[id: string]: ComponentTemplate} = {
         name: "Graphic Menu",
         ownerId: "",
         version: 1,
-        previewImageUrls: [],
+        previewImageUrls: ["/images/templates/boxed_list.png", "/images/templates/boxed_menu.png"],
         description: "This template displays data as a menu / catalog of items with prices and images.",
         visibility: "PUBLIC",
         pages: ["LIST"],
@@ -445,7 +433,7 @@ export const template_cache: {[id: string]: ComponentTemplate} = {
         name: "Job Postings",
         ownerId: "",
         version: 1,
-        previewImageUrls: [],
+        previewImageUrls: ["/images/templates/job_postings.png"],
         description: "This template displays each row of data as a card, with a title, an image, and a link to redirect to.",
         visibility: "PUBLIC",
         pages: ["LIST"],
