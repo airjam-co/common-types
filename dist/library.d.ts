@@ -10,7 +10,8 @@ export declare enum ViewType {
     List = "view_list",
     Gallery = "view_gallery",
     Graph = "view_graph",
-    Table = "view_table"
+    Table = "view_table",
+    Map = "view_map"
 }
 export declare enum PaginationStyle {
     Paged = "pagination_paged",
@@ -24,7 +25,9 @@ export declare enum DataSourceFieldType {
     Currency = "currency",
     Percent = "percent",
     Link = "link",
-    Email = "email"
+    Email = "email",
+    LatLng = "latlng",
+    Address = "address"
 }
 export declare enum SortBy {
     RECENT = "recent",
@@ -52,6 +55,13 @@ export interface TemplateField {
     description: string;
     compatibleTypes: DataSourceFieldType[];
 }
+export declare enum PageTypes {
+    LIST = "LIST",
+    DETAIL = "DETAIL",
+    EDIT = "EDIT",
+    CREATE = "CREATE",
+    MARKER = "MARKER"
+}
 export interface ComponentTemplate extends UnifiedModel {
     shortId: string;
     compatibleWith: string[];
@@ -62,11 +72,13 @@ export interface ComponentTemplate extends UnifiedModel {
     previewImageUrls: string[];
     description: string;
     visibility: "PUBLIC" | "PRIVATE" | "PAID";
-    pages: ("LIST" | "DETAIL" | "EDIT" | "CREATE")[];
+    pages: PageTypes[];
     properties: {
         [id: string]: TemplateProperty;
     };
-    templateContent: string;
+    pageContent: {
+        [id: string]: string;
+    };
     templateFields: {
         [id: string]: TemplateField;
     };
@@ -81,6 +93,7 @@ export interface TemplateStyle extends UnifiedModel {
     ownerId: string;
     version: number;
     style: string;
+    jsonContent?: any;
     containerClassNames: string[];
     previewImageUrls: string[];
     description: string;
@@ -92,6 +105,8 @@ export interface TemplateStyle extends UnifiedModel {
     componentProperties: {
         [id: string]: any;
     };
+}
+export interface MapStyle extends TemplateStyle {
 }
 export interface tableViewResponse {
     title: string;
