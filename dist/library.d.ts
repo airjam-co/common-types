@@ -11,7 +11,14 @@ export declare enum ViewType {
     Gallery = "view_gallery",
     Graph = "view_graph",
     Table = "view_table",
-    Map = "view_map"
+    Map = "view_map",
+    Nearby = "view_nearby"
+}
+export declare enum CodingLanguages {
+    Javascript = "javascript",
+    Typescript = "typescript",
+    React = "react",
+    ReactNative = "react_native"
 }
 export declare enum PaginationStyle {
     Paged = "pagination_paged",
@@ -39,16 +46,18 @@ export interface DataSourceField {
     variableName: string;
     displayAs: DataSourceFieldType;
     show: boolean;
+    searchable: boolean;
 }
 export interface TemplateProperty {
     name: string;
     description?: string;
     default?: any;
-    type: ("BOOLEAN" | "NUMBER" | "COLOR");
+    type: ("BOOLEAN" | "NUMBER" | "COLOR" | "LIST" | "MULTI" | "TEXT");
     advancedProperty?: boolean;
     tab?: string;
     multiple?: boolean;
     limit?: number;
+    values?: any[];
 }
 export interface TemplateField {
     name: string;
@@ -56,6 +65,7 @@ export interface TemplateField {
     compatibleTypes: DataSourceFieldType[];
 }
 export declare enum PageTypes {
+    LANDING = "LANDING",
     LIST = "LIST",
     DETAIL = "DETAIL",
     EDIT = "EDIT",
@@ -85,6 +95,7 @@ export interface ComponentTemplate extends UnifiedModel {
     componentProperties: {
         [id: string]: any;
     };
+    compatibleLanguages: CodingLanguages[];
 }
 export interface TemplateStyle extends UnifiedModel {
     shortId: string;

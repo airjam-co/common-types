@@ -1,6 +1,6 @@
 {
   "name": "@airjam/types",
-  "version": "0.0.51",
+  "version": "0.0.70",
   "license": "Apache-2.0",
   "author": "airjamadmin",
   "description": "Shared component types library for AirJam",

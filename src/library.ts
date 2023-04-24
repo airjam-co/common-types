@@ -14,7 +14,15 @@ export enum ViewType {
     Gallery = "view_gallery",
     Graph = "view_graph",
     Table = "view_table",
-    Map = "view_map"
+    Map = "view_map",
+    Nearby = "view_nearby",
+}
+
+export enum CodingLanguages {
+    Javascript = "javascript",
+    Typescript = "typescript",
+    React = "react",
+    ReactNative = "react_native"
 }
 
 export enum PaginationStyle {
@@ -46,17 +54,19 @@ export interface DataSourceField {
     variableName: string;
     displayAs: DataSourceFieldType;
     show: boolean;
+    searchable: boolean;
 }
 
 export interface TemplateProperty {
     name: string;
     description?: string;
     default?: any;
-    type: ("BOOLEAN" | "NUMBER" | "COLOR");
+    type: ("BOOLEAN" | "NUMBER" | "COLOR" | "LIST" | "MULTI" | "TEXT" );
     advancedProperty?: boolean;
     tab?: string;
     multiple?: boolean;
     limit?: number;
+    values?: any[]; // set of values for custom multi-option entries.
 }
 
 export interface TemplateField {
@@ -66,6 +76,7 @@ export interface TemplateField {
 }
 
 export enum PageTypes {
+    LANDING = "LANDING",
     LIST = "LIST",
     DETAIL = "DETAIL",
     EDIT = "EDIT",
@@ -88,6 +99,7 @@ export interface ComponentTemplate extends UnifiedModel {
     pageContent: {[id: string]: string};
     templateFields: {[id: string]: TemplateField};
     componentProperties: {[id: string]: any};
+    compatibleLanguages: CodingLanguages[];
 }
 
 export interface TemplateStyle extends UnifiedModel {
@@ -167,7 +179,7 @@ export function inferDataSourceFieldType(data: string): DataSourceFieldType {
     if (isUri(data)) return DataSourceFieldType.Link;
     if (isDate(data)) return DataSourceFieldType.DateTime;
     // currency and percent are not inferrable
-    if (!isNaN(parseFloat(data))) return DataSourceFieldType.Number;
+    if (!isNaN(Number(data))) return DataSourceFieldType.Number;
     // todo(minjae): Add a address / lat lng detector
     return DataSourceFieldType.Text;
 }
@@ -196,6 +208,7 @@ export const template_cache: {[id: string]: ComponentTemplate} = {
         shortId: "card_list",
         compatibleWith: ["table_view"],
         compatibleDisplayType: [ViewType.List, ViewType.Gallery],
+        compatibleLanguages: [CodingLanguages.Javascript, CodingLanguages.Typescript, CodingLanguages.React],
         name: "Card List",
         ownerId: "",
         version: 1,
@@ -241,6 +254,7 @@ export const template_cache: {[id: string]: ComponentTemplate} = {
         shortId: "standard_table",
         compatibleWith: ["table_view"],
         compatibleDisplayType: [ViewType.Table],
+        compatibleLanguages: [CodingLanguages.Javascript, CodingLanguages.Typescript, CodingLanguages.React],
         name: "Table",
         ownerId: "",
         version: 1,
@@ -266,6 +280,7 @@ export const template_cache: {[id: string]: ComponentTemplate} = {
         shortId: "barchart",
         compatibleWith: ["table_view"],
         compatibleDisplayType: [ViewType.Graph],
+        compatibleLanguages: [CodingLanguages.Javascript, CodingLanguages.Typescript, CodingLanguages.React],
         name: "Bar Chart",
         ownerId: "",
         version: 1,
@@ -316,6 +331,7 @@ export const template_cache: {[id: string]: ComponentTemplate} = {
         shortId: "piechart",
         compatibleWith: ["table_view"],
         compatibleDisplayType: [ViewType.Graph],
+        compatibleLanguages: [CodingLanguages.Javascript, CodingLanguages.Typescript, CodingLanguages.React],
         name: "Pie Chart",
         ownerId: "",
         version: 1,
@@ -348,6 +364,7 @@ export const template_cache: {[id: string]: ComponentTemplate} = {
         shortId: "doughnutchart",
         compatibleWith: ["table_view"],
         compatibleDisplayType: [ViewType.Graph],
+        compatibleLanguages: [CodingLanguages.Javascript, CodingLanguages.Typescript, CodingLanguages.React],
         name: "Doughnut Chart",
         ownerId: "",
         version: 1,
@@ -380,6 +397,7 @@ export const template_cache: {[id: string]: ComponentTemplate} = {
         shortId: "linechart",
         compatibleWith: ["table_view"],
         compatibleDisplayType: [ViewType.Graph],
+        compatibleLanguages: [CodingLanguages.Javascript, CodingLanguages.Typescript, CodingLanguages.React],
         name: "Line Chart",
         ownerId: "",
         version: 1,
@@ -424,6 +442,7 @@ export const template_cache: {[id: string]: ComponentTemplate} = {
         shortId: "formal_menu",
         compatibleWith: ["table_view"],
         compatibleDisplayType: [ViewType.List],
+        compatibleLanguages: [CodingLanguages.Javascript, CodingLanguages.Typescript, CodingLanguages.React],
         name: "Formal Menu",
         ownerId: "",
         version: 1,
@@ -459,6 +478,7 @@ export const template_cache: {[id: string]: ComponentTemplate} = {
         shortId: "graphic_menu",
         compatibleWith: ["table_view"],
         compatibleDisplayType: [ViewType.Gallery],
+        compatibleLanguages: [CodingLanguages.Javascript, CodingLanguages.Typescript, CodingLanguages.React],
         name: "Graphic Menu",
         ownerId: "",
         version: 1,
@@ -499,6 +519,7 @@ export const template_cache: {[id: string]: ComponentTemplate} = {
         shortId: "job_postings",
         compatibleWith: ["table_view"],
         compatibleDisplayType: [ViewType.List],
+        compatibleLanguages: [CodingLanguages.Javascript, CodingLanguages.Typescript, CodingLanguages.React],
         name: "Job Postings",
         ownerId: "",
         version: 1,
@@ -534,10 +555,11 @@ export const template_cache: {[id: string]: ComponentTemplate} = {
         shortId: "store_locator",
         compatibleWith: ["table_view"],
         compatibleDisplayType: [ViewType.Map],
+        compatibleLanguages: [CodingLanguages.Javascript, CodingLanguages.Typescript],
         name: "Store Locator",
         ownerId: "",
         version: 1,
-        previewImageUrls: ["/images/templates/job_postings.png"],
+        previewImageUrls: ["/images/templates/store_locator.png"],
         description: "This template displays each row of data as a pinpoint on a map.",
         visibility: "PUBLIC",
         pages: [PageTypes.LIST, PageTypes.MARKER],
@@ -545,8 +567,8 @@ export const template_cache: {[id: string]: ComponentTemplate} = {
         },
         pageContent:
         {
-            "LIST" : "<div class='container'><span class='label'>{{index}}. {{label}}</span><span class='description'>{{description}}</span><span class='location'>{{location}}</span><a class='callout' href='{{calloutLink1}}'>{{calloutLinkText1}}</a></div>",
-            "MARKER" : "<div class='container'><span class='label'>{{index}}. {{label}}</span><a class='callout' href='{{calloutLink1}}'>{{calloutLinkText1}}</a></div>"
+            "LIST" : "<div class='container'><span class='label'>{{index}}. {{label}}</span><span class='image'><img src='{{image}}'/></span><span class='description'>{{description}}</span><span class='location'><i class='fa-solid fa-map-pin icon'></i>{{location}}</span><span class='callouts'><a class='callout' href='{{calloutLink1}}'>{{calloutLinkText1}}</a><a class='callout' href='{{calloutLink2}}'>{{calloutLinkText2}}</a></span></div>",
+            "MARKER" : "<div class='marker'><span class='label'>{{label}}</span><span class='location'><i class='fa-solid fa-map-pin icon'></i>{{location}}</span><a class='callout' href='{{calloutLink1}}'>{{calloutLinkText1}}</a></div>"
         },
         templateFields: {
             label: {
@@ -598,7 +620,80 @@ export const template_cache: {[id: string]: ComponentTemplate} = {
         componentProperties: {
         }
     },
-}
+    "self_tour": {
+        _id: "",
+        shortId: "self_tour",
+        compatibleWith: ["table_view"],
+        compatibleDisplayType: [ViewType.Nearby],
+        compatibleLanguages: [CodingLanguages.ReactNative],
+        name: "Self-Guided tours",
+        ownerId: "",
+        version: 1,
+        previewImageUrls: ["/images/templates/store_locator.png"],
+        description: "This template vends self-guided tour content for mobile devices.",
+        visibility: "PUBLIC",
+        pages: [PageTypes.LANDING, PageTypes.DETAIL],
+        properties: {
+            autoPlayAudio: {
+                name: "Autoplay audio",
+                description: "Auto-play audio content when detail page is triggered",
+                default: true,
+                type: "BOOLEAN"
+            },
+            lookupInterface: {
+                name: "Lookup interface",
+                description: "Lookup interface",
+                default: undefined,
+                type: "MULTI",
+                values: [
+                    {key: "NUMERIC", text: "Numeric", value: "NUMERIC"},
+                    {key: "QR", text: "QR Code", value: "QR"},
+                    {key: "BLE", text: "iBeacon", value: "BLE"},
+                ]
+            },
+            iBeaconUuid: {
+                name: "iBeacon UUID",
+                description: "iBeacon's proximity UUID to distinguish beacons in your network",
+                default: "",
+                type: "TEXT"
+            },
+            sheetHeight: {
+                name: "Popup height (%)",
+                description: "Height of the pop up sheet with respect to the height of the user's device (0 to 100)",
+                default: "50",
+                type: "NUMBER"
+            }
+        },
+        pageContent:
+        {
+            "LANDING": "<div class='container'><span class='heading'>Move closer to an item or enter an item number to view</span></div>",
+            "DETAIL" : "<div class='container'><span class='image' style='background-image: url(\"{{image}}\");'><span class='audio'><audio controls autoplay><source src='{{audio}}' /></audio></span></span><span class='label'>{{label}}</span><span class='description'>{{description}}</span></div>"
+        },
+        templateFields: {
+            label: {
+                name: "Label",
+                description: "Label of the artifact",
+                compatibleTypes: [],
+            },
+            image: {
+                name: "Image",
+                description: "Link to the the main image of the artifact",
+                compatibleTypes: [DataSourceFieldType.Link],
+            },
+            audio: {
+                name: "Audio",
+                description: "Link to the audio description of the artifact",
+                compatibleTypes: [DataSourceFieldType.Link],
+            },
+            description: {
+                name: "Description",
+                description: "Description of the point of interest",
+                compatibleTypes: [],
+            }
+        },
+        componentProperties: {
+        }
+    },}
 
 export const style_cache: {[id: string]: TemplateStyle} = {
     "muted": {
@@ -710,7 +805,7 @@ export const style_cache: {[id: string]: TemplateStyle} = {
         previewImageUrls: [],
         description: "Minimalistic look and feel for gallery-typed templates.",
         visibility: "PUBLIC",
-        style: ".concise_gallery .container { display: inline-grid; padding: 10px; width: 300px; border: 1px solid #ddd; border-radius: 10px; margin: 5px; } .concise_gallery .container .title { font-size: 1.2 rem; font-weight: 600; }  .concise_gallery .container .image img { width: 100% } .concise_gallery .container .description { display: block } .concise_gallery .pagination a, .concise_gallery .pagination span { margin: 2px; padding: 3px; }",
+        style: ".concise_gallery .container { display: inline-grid; padding: 10px; width: 300px; border: 1px solid #ddd; border-radius: 10px; margin: 5px; } .concise_gallery .container .title { font-size: 1.2 rem; font-weight: 600; }  .concise_gallery .container .image img { width: 100% } .concise_gallery .container .description { display: block } .concise_gallery .pagination a, .concise_gallery .pagination .currentPage { margin: 2px; padding: 3px; }",
         containerClassNames: ["concise_gallery"],
         colorTheme: ["#ddd"],
         properties: {
@@ -728,7 +823,7 @@ export const style_cache: {[id: string]: TemplateStyle} = {
         previewImageUrls: [],
         description: "Traditional look and feel for menu templates.",
         visibility: "PUBLIC",
-        style: "@import url('https://fonts.googleapis.com/css2?family=Castoro&display=swap'); .fine_dining .container { font-family: 'Castoro', serif; display: block; padding: 10px; text-align: center } .fine_dining .container .name { font-size: 20px; }  .fine_dining .container .price { font-size: 18px; display: block; margin-top: 5px; margin-bottom: 10px } .fine_dining .container .description { display: block } .fine_dining .pagination a, .fine_dining .pagination span { margin: 2px; padding: 3px; }",
+        style: "@import url('https://fonts.googleapis.com/css2?family=Castoro&display=swap'); .fine_dining .container { font-family: 'Castoro', serif; display: block; padding: 10px; text-align: center } .fine_dining .container .name { font-size: 20px; }  .fine_dining .container .price { font-size: 18px; display: block; margin-top: 5px; margin-bottom: 10px } .fine_dining .container .description { display: block } .fine_dining .pagination a, .fine_dining .pagination .currentPage { margin: 2px; padding: 3px; }",
         containerClassNames: ["fine_dining"],
         colorTheme: ["#000"],
         properties: {
@@ -746,7 +841,7 @@ export const style_cache: {[id: string]: TemplateStyle} = {
         previewImageUrls: [],
         description: "Modern look and feel for fine dining menu templates.",
         visibility: "PUBLIC",
-        style: "@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@1,400&family=Tenor+Sans&display=swap'); .contemporary_fine_dining .container { display: block; padding: 10px; text-align: center } .contemporary_fine_dining .container .name { font-family: 'Tenor Sans', sans-serif; font-size: 20px; } .contemporary_fine_dining .container .price { font-family: 'Tenor Sans', sans-serif; font-size: 18px; display: block; margin-top: 5px; margin-bottom: 10px } .contemporary_fine_dining .container .description { font-family: 'Playfair Display', serif; font-style: italic; display: block } .contemporary_fine_dining .pagination a, .contemporary_fine_dining .pagination span { margin: 2px; padding: 3px; }",
+        style: "@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@1,400&family=Tenor+Sans&display=swap'); .contemporary_fine_dining .container { display: block; padding: 10px; text-align: center } .contemporary_fine_dining .container .name { font-family: 'Tenor Sans', sans-serif; font-size: 20px; } .contemporary_fine_dining .container .price { font-family: 'Tenor Sans', sans-serif; font-size: 18px; display: block; margin-top: 5px; margin-bottom: 10px } .contemporary_fine_dining .container .description { font-family: 'Playfair Display', serif; font-style: italic; display: block } .contemporary_fine_dining .pagination a, .contemporary_fine_dining .pagination .currentPage { margin: 2px; padding: 3px; }",
         containerClassNames: ["contemporary_fine_dining"],
         colorTheme: ["#000"],
         properties: {
@@ -764,7 +859,7 @@ export const style_cache: {[id: string]: TemplateStyle} = {
         previewImageUrls: [],
         description: "Vibrant style for graphic menu templates with emphasis on item image.",
         visibility: "PUBLIC",
-        style: "@import url('https://fonts.googleapis.com/css2?family=Open+Sans&display=swap'); .healthy_five .container { display: inline-block; width: 300px; padding: 10px; font-family: 'Open Sans', sans-serif; } .healthy_five .container .image img { display: block; max-width: 100%; height: auto; margin: 10px 0 5px 0; } .healthy_five .container .name { font-size: 20px; } .healthy_five .container .price { font-size: 18px; display: block; } .healthy_five .container .description { display: block } .healthy_five .pagination a, .healthy_five .pagination span { margin: 2px; padding: 3px; }",
+        style: "@import url('https://fonts.googleapis.com/css2?family=Open+Sans&display=swap'); .healthy_five .container { display: inline-block; width: 300px; padding: 10px; font-family: 'Open Sans', sans-serif; } .healthy_five .container .image img { display: block; max-width: 100%; height: auto; margin: 10px 0 5px 0; } .healthy_five .container .name { font-size: 20px; } .healthy_five .container .price { font-size: 18px; display: block; } .healthy_five .container .description { display: block } .healthy_five .pagination a, .healthy_five .pagination .currentPage { margin: 2px; padding: 3px; }",
         containerClassNames: ["healthy_five"],
         colorTheme: ["#000"],
         properties: {
@@ -782,7 +877,7 @@ export const style_cache: {[id: string]: TemplateStyle} = {
         previewImageUrls: [],
         description: "Graphic menu templates with container boxes around each menu item.",
         visibility: "PUBLIC",
-        style: "@import url('https://fonts.googleapis.com/css2?family=Roboto+Slab&display=swap'); .menu_boxes .container { display: inline-block; width: 300px; padding: 10px; font-family: 'Roboto Slab', serif; border: 1px solid #efefef; border-radius: 5px; margin: 5px; } .menu_boxes .container .image { object-fit: cover; } .menu_boxes .container .image img { display: block; width: 100%; height: 200px; margin: 5px 0 5px 0; } .menu_boxes .container .name { font-size: 16px; } .menu_boxes .container .price { font-size: 14px; display: block; } .menu_boxes .container .description { display: block; font-size: 14px; } .menu_boxes .pagination a, .menu_boxes .pagination span { margin: 2px; padding: 3px; }",
+        style: "@import url('https://fonts.googleapis.com/css2?family=Roboto+Slab&display=swap'); .menu_boxes .container { display: inline-block; width: 300px; padding: 10px; font-family: 'Roboto Slab', serif; border: 1px solid #efefef; border-radius: 5px; margin: 5px; } .menu_boxes .container .image { object-fit: cover; } .menu_boxes .container .image img { display: block; width: 100%; height: 200px; margin: 5px 0 5px 0; } .menu_boxes .container .name { font-size: 16px; } .menu_boxes .container .price { font-size: 14px; display: block; } .menu_boxes .container .description { display: block; font-size: 14px; } .menu_boxes .pagination a, .menu_boxes .pagination .currentPage { margin: 2px; padding: 3px; }",
         containerClassNames: ["menu_boxes"],
         colorTheme: ["#efefef", "#000"],
         properties: {
@@ -800,7 +895,7 @@ export const style_cache: {[id: string]: TemplateStyle} = {
         previewImageUrls: [],
         description: "Graphic menu templates with stacked container boxes displayed like a list.",
         visibility: "PUBLIC",
-        style: "@import url('https://fonts.googleapis.com/css2?family=Roboto+Slab&display=swap'); .menu_box_list .container { display: inline-block; width: 400px; height: 100px; padding: 5px; font-family: 'Roboto Slab', serif; border: 1px solid #efefef; border-radius: 5px; margin: 5px; } .menu_box_list .container .image { height: 100px; float: right; } .menu_box_list .container .image img { display: block; width: 100px; height: 100px; object-fit: cover; } .menu_box_list .container .name { font-size: 16px; margin-bottom: 5px; } .menu_box_list .container .price { font-size: 14px; display: block; margin-bottom: 10px } .menu_box_list .container .description { display: block; font-size: 14px; } .menu_box_list .pagination a, .menu_box_list .pagination span { margin: 2px; padding: 3px; }",
+        style: "@import url('https://fonts.googleapis.com/css2?family=Roboto+Slab&display=swap'); .menu_box_list .container { display: inline-block; width: 400px; height: 100px; padding: 5px; font-family: 'Roboto Slab', serif; border: 1px solid #efefef; border-radius: 5px; margin: 5px; } .menu_box_list .container .image { height: 100px; float: right; } .menu_box_list .container .image img { display: block; width: 100px; height: 100px; object-fit: cover; } .menu_box_list .container .name { font-size: 16px; margin-bottom: 5px; } .menu_box_list .container .price { font-size: 14px; display: block; margin-bottom: 10px } .menu_box_list .container .description { display: block; font-size: 14px; } .menu_box_list .pagination a, .menu_box_list .pagination .currentPage { margin: 2px; padding: 3px; }",
         containerClassNames: ["menu_box_list"],
         colorTheme: ["#efefef", "#000"],
         properties: {
@@ -818,9 +913,45 @@ export const style_cache: {[id: string]: TemplateStyle} = {
         previewImageUrls: [],
         description: "Plain job postings style.",
         visibility: "PUBLIC",
-        style: "@import url('https://fonts.googleapis.com/css2?family=Open+Sans&display=swap'); .job_posting_plain .container a { color: #000; text-decoration: none; } .job_posting_plain .container a:hover { text-decoration: underline; } .job_posting_plain .container { display: block; font-family: 'Open Sans', sans-serif; border-top: 1px solid #aaa; margin: 5px 0 5px 0; padding: 15px 0 15px 0; } .job_posting_plain .container .title { font-size: 20px; margin-bottom: 5px; } .job_posting_plain .container .description { display: block; font-size: 16px; } .job_posting_plain .pagination a, .job_posting_plain .pagination span { margin: 2px; padding: 3px; }",
+        style: "@import url('https://fonts.googleapis.com/css2?family=Open+Sans&display=swap'); .job_posting_plain .container a { color: #000; text-decoration: none; } .job_posting_plain .container a:hover { text-decoration: underline; } .job_posting_plain .container { display: block; font-family: 'Open Sans', sans-serif; border-top: 1px solid #aaa; margin: 5px 0 5px 0; padding: 15px 0 15px 0; } .job_posting_plain .container .title { font-size: 20px; margin-bottom: 5px; } .job_posting_plain .container .description { display: block; font-size: 16px; } .job_posting_plain .pagination a, .job_posting_plain .pagination .currentPage { margin: 2px; padding: 3px; }",
         containerClassNames: ["job_posting_plain"],
         colorTheme: ["#fff", "#000", "#aaa"],
+        properties: {
+        },
+        componentProperties: {
+        }
+    },
+    "audio_guide": {
+        _id: "",
+        shortId: "audio_guide",
+        name: "Concise Guide",
+        compatibleWith: ["self_tour"],
+        ownerId: "",
+        version: 1,
+        previewImageUrls: [],
+        description: "Audio-based self-guide.",
+        visibility: "PUBLIC",
+        style: "@import url('https://fonts.googleapis.com/css2?family=Open+Sans&display=swap'); .audio_guide .container { width: 100%; background: transparent; font-family: 'Open Sans', sans-serif; } .audio_guide .container .heading { display: block; width: 100%; text-align: center; font-size: 24px; margin-top: 20px; } .audio_guide .container .image { display: block; height: 250px; background-size: cover; margin-bottom: 40px; } .audio_guide .container .audio audio { width: 100%; height: 280px; } .audio_guide .container .label { display: block; font-size: 22px; font-weight: 600; margin-bottom: 20px; text-align: center; }",
+        containerClassNames: ["audio_guide"],
+        colorTheme: ["#fff", "#000", "#aaa"],
+        properties: {
+        },
+        componentProperties: {
+        }
+    },
+    "audio_guide_expanded": {
+        _id: "",
+        shortId: "audio_guide_expanded",
+        name: "Expanded guide",
+        compatibleWith: ["self_tour"],
+        ownerId: "",
+        version: 1,
+        previewImageUrls: [],
+        description: "Audio-based self-guide.",
+        visibility: "PUBLIC",
+        style: "@import url('https://fonts.googleapis.com/css2?family=Open+Sans&display=swap'); .audio_guide .container { width: 100%; background: transparent; font-family: 'Open Sans', sans-serif; } .audio_guide .container .heading { display: block; width: 100%; text-align: center; font-size: 24px; margin-top: 20px; } .audio_guide .container .image { display: block; height: 300px; background-size: cover; margin-bottom: 100px; } .audio_guide .container .audio audio { width: 100%; height: 370px; } .audio_guide .container .label { display: block; font-size: 22px; font-weight: 600; margin-bottom: 20px; text-align: center; color: #DB5124 }",
+        containerClassNames: ["audio_guide"],
+        colorTheme: ["#DB5124", "#fff", "#000", "#aaa"],
         properties: {
         },
         componentProperties: {
@@ -836,9 +967,9 @@ export const style_cache: {[id: string]: TemplateStyle} = {
         previewImageUrls: [],
         description: "Natural look and feel.",
         visibility: "PUBLIC",
-        style: "@import url('https://fonts.googleapis.com/css2?family=Open+Sans&display=swap'); .map_outback { width: 100% } .map-control { width: 100%; height: 100%; display: inline-block; position: relative; max-width: 480px; vertical-align: top; overflow-y: scroll } .map-container { min-height: 300px; height: 100%; display: inline-block; width: calc(100% - 480px); position: relative; overflow: hidden } .map-control-entry { border-top: 1px solid #9ca5b3; padding: 10px; font-family: 'Open Sans', sans; } .map-control-entry .label { display: block; font-size: 20px; font-weight: 500; margin-bottom: 5px; } .map-control-entry .description { display: block; margin-bottom: 5px; font-size: 14px; } .map-control-entry .location { display: block; margin-bottom: 10px; font-size: 14px; } .map-control-entry .callout { display: inline-block; padding: 5px; border: 1px solid #a5b076; font-size: 14px; text-decoration: none; color: #000 }",
+        style: "@import url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css'); @import url('https://fonts.googleapis.com/css2?family=Mukta&display=swap'); @import url('https://fonts.googleapis.com/css2?family=EB+Garamond&display=swap'); .map_outback { width: 100% } .map_outback .map-control { width: 100%; height: 100%; display: inline-block; position: relative; max-width: 480px; vertical-align: top; overflow-y: scroll } .map_outback .map-container { min-height: 300px; height: 100%; display: inline-block; width: calc(100% - 480px); position: relative; overflow: hidden } .map_outback .map-control-entry { border-top: 1px solid #9ca5b3; padding: 10px; font-family: 'EB Garamond', serif; font-size: 16px; line-height: 20px; } .map_outback .map-control-entry .label { display: block; font-size: 20px; font-weight: 500; margin-bottom: 5px; font-family: 'Mukta', sans-serif; } .map_outback .map-control-entry .image img { width: 100%; margin-top: 10px; margin-bottom: 10px; } .map_outback .map-control-entry .description { display: block; margin-bottom: 5px; font-size: 16px; } .map_outback .map-control-entry .location { display: block; margin-bottom: 10px; font-size: 16px; } .map_outback .map-control-entry .location .icon { margin-right: 5px; } .map_outback .map-control-entry .callout { display: inline-block; padding: 9px 13px; border: 1px solid #a5b076; font-size: 0.7rem; text-decoration: none; text-transform: uppercase; color: #000; font-family: 'Mukta', sans-serif; font-weight: 200; margin-right: 10px; } .map_outback .map-control-entry .callout:hover { background-color: #a5b076; color: #ffffff; } .map_outback .marker .label { display: block; margin-bottom: 5px; font-size: 16px } .map_outback .marker .location { display: block; margin-bottom: 5px; } .map_outback .marker .location .icon { margin-right: 5px; } .map_outback .pagination { margin-top: 5px; } .map_outback .pagination a, .map_outback .pagination .currentPage { margin: 2px; padding: 3px; font-size: 16px; }",
         containerClassNames: ["map_outback"],
-        colorTheme: ["ae9e90", "a5b076", "93817c", "#ebe3cd", "#523735", "#f5f1e6", "c9b2a6"],
+        colorTheme: ["#ae9e90", "#a5b076", "#93817c", "#ebe3cd", "#523735", "#f5f1e6", "#c9b2a6"],
         properties: {
         },
         componentProperties: {
@@ -1134,11 +1265,11 @@ export const style_cache: {[id: string]: TemplateStyle} = {
         ownerId: "",
         version: 1,
         previewImageUrls: [],
-        description: "Designed to blend with darker color themes.",
+        description: "Designed to blend with darker color themes. This style ignores the image fields specified in the template",
         visibility: "PUBLIC",
-        style: "@import url('https://fonts.googleapis.com/css2?family=Open+Sans&display=swap'); .map_inverted { width: 100% } .map-control { width: 100%; height: 100%; display: inline-block; position: relative; max-width: 480px; vertical-align: top; overflow-y: scroll } .map-container { min-height: 300px; height: 100%; display: inline-block; width: calc(100% - 480px); position: relative; overflow: hidden } .map-control-entry { border-top: 1px solid #746855; padding: 10px; font-family: 'Open Sans', sans; } .map-control-entry .label { display: block; font-size: 20px; font-weight: 500; margin-bottom: 5px; } .map-control-entry .description { display: block; margin-bottom: 5px; font-size: 14px; } .map-control-entry .location { display: block; margin-bottom: 10px; font-size: 14px; } .map-control-entry .callout { display: inline-block; padding: 5px; border: 1px solid #746855; font-size: 14px; text-decoration: none; color: #000 }",
+        style: "@import url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css'); url('https://fonts.googleapis.com/css2?family=Lato&display=swap') .map_inverted { width: 100% } .map_inverted .map-control { width: 100%; height: 100%; display: inline-block; position: relative; max-width: 480px; vertical-align: top; overflow-y: scroll } .map_inverted .map-container { min-height: 300px; height: 100%; display: inline-block; width: calc(100% - 480px); position: relative; overflow: hidden } .map_inverted .map-control-entry { border-top: 1px solid #9ca5b3; padding: 10px; font-family: 'Lato', sans-serif; font-size: 16px; line-height: 20px; } .map_inverted .map-control-entry .container { display: flex; flex-flow: column; } .map_inverted .map-control-entry .label { display: block; font-size: 18px; font-weight: 600; margin-bottom: 5px; font-family: 'Lato', sans-serif; order: 2; } .map_inverted .map-control-entry .image { order: 1; display: none; } .map_inverted .map-control-entry .description { order: 3; display: block; margin-bottom: 5px; font-size: 16px; } .map_inverted .map-control-entry .location { display: block; margin-bottom: 15px; font-size: 16px; order: 4 } .map_inverted .map-control-entry .location .icon { margin-right: 5px; } .map_inverted .map-control-entry .callouts { order: 5 } .map_inverted .map-control-entry .callout { display: inline-block; width: 40%; text-align: center; padding: 9px 13px; border: 1px solid #000; font-size: 14px; text-decoration: none; text-transform: uppercase; color: #000; font-family: 'Lato', sans-serif; font-weight: 600; margin-right: 10px; } .map_inverted .map-control-entry .callout:hover { background-color: #000000; color: #ffffff; } .map_inverted .marker .label { display: block; margin-bottom: 5px; font-size: 16px } .map_inverted .marker .location { display: block; margin-bottom: 5px; } .map_inverted .marker .location .icon { margin-right: 5px; } .map_inverted .pagination { margin-top: 5px; } .map_inverted .pagination a, .map_inverted .pagination .currentPage { margin: 2px; padding: 3px; font-size: 16px; }",
         containerClassNames: ["map_inverted"],
-        colorTheme: ["#746855", "#d59563", "#6b9a76", "#9ca5b3", "#17263c"],
+        colorTheme: ["#000000", "#cccccc", "#ffffff"],
         properties: {
         },
         componentProperties: {
@@ -1397,9 +1528,9 @@ export const style_cache: {[id: string]: TemplateStyle} = {
         ownerId: "",
         version: 1,
         previewImageUrls: [],
-        description: "Map is designed to be suppressed from the placemarks.",
+        description: "Map is designed to be suppressed from the place marks.",
         visibility: "PUBLIC",
-        style: "@import url('https://fonts.googleapis.com/css2?family=Open+Sans&display=swap'); .map_silver { width: 100% } .map-control { width: 100%; height: 100%; display: inline-block; position: relative; max-width: 480px; vertical-align: top; overflow-y: scroll } .map-container { min-height: 300px; height: 100%; display: inline-block; width: calc(100% - 480px); position: relative; overflow: hidden } .map-control-entry { border-top: 1px solid #746855; padding: 10px; font-family: 'Open Sans', sans; } .map-control-entry .label { display: block; font-size: 20px; font-weight: 500; margin-bottom: 5px; } .map-control-entry .description { display: block; margin-bottom: 5px; font-size: 14px; } .map-control-entry .location { display: block; margin-bottom: 10px; font-size: 14px; } .map-control-entry .callout { display: inline-block; padding: 5px; border: 1px solid #746855; font-size: 14px; text-decoration: none; color: #000 }",
+        style: "@import url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css'); url('https://fonts.googleapis.com/css2?family=Lato&display=swap') .map_silver { width: 100% } .map_silver .map-control { width: 100%; height: 100%; display: inline-block; position: relative; max-width: 480px; vertical-align: top; overflow-y: scroll } .map_silver .map-container { min-height: 300px; height: 100%; display: inline-block; width: calc(100% - 480px); position: relative; overflow: hidden } .map_silver .map-control-entry { border-top: 1px solid #9ca5b3; padding: 10px; font-family: 'Lato', sans-serif; font-size: 16px; line-height: 20px; } .map_silver .map-control-entry .container { display: flex; flex-flow: column; } .map_silver .map-control-entry .label { display: block; font-size: 18px; font-weight: 600; margin-bottom: 5px; font-family: 'Lato', sans-serif; order: 2; } .map_silver .map-control-entry .image { order: 1 } .map_silver .map-control-entry .image img { width: 100%; margin-bottom: 10px; height: 250px; object-fit: cover; } .map_silver .map-control-entry .description { display: none; order: 3 } .map_silver .map-control-entry .location { display: block; margin-bottom: 15px; font-size: 16px; order: 4 } .map_silver .map-control-entry .location .icon { margin-right: 5px; } .map_silver .map-control-entry .callouts { order: 5 } .map_silver .map-control-entry .callout { display: inline-block; width: 40%; text-align: center; padding: 9px 13px; border: 1px solid #9ca5b3; font-size: 14px; text-decoration: none; text-transform: uppercase; color: #000; font-family: 'Lato', sans-serif; font-weight: 600; margin-right: 10px; } .map_silver .map-control-entry .callout:hover { background-color: #9ca5b3; color: #ffffff; } .map_silver .marker .label { display: block; margin-bottom: 5px; font-size: 16px } .map_silver .marker .location { display: block; margin-bottom: 5px; } .map_silver .marker .location .icon { margin-right: 5px; } .map_silver .pagination { margin-top: 5px; } .map_silver .pagination a, .map_silver .pagination .currentPage { margin: 2px; padding: 3px; font-size: 16px; }",
         containerClassNames: ["map_silver"],
         colorTheme: ["#746855", "#d59563", "#6b9a76", "#9ca5b3", "#17263c"],
         properties: {
