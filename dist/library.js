@@ -48,6 +48,17 @@
         SortBy["RECENT"] = "recent";
         SortBy["OLDEST"] = "oldest";
     })(exports.SortBy || (exports.SortBy = {}));
+    exports.QueryType = void 0;
+    (function (QueryType) {
+        QueryType["EXACT"] = "exact";
+        QueryType["KEYWORD"] = "keyword";
+    })(exports.QueryType || (exports.QueryType = {}));
+    exports.QueryOperator = void 0;
+    (function (QueryOperator) {
+        QueryOperator["AND"] = "and";
+        QueryOperator["OR"] = "or";
+        QueryOperator["NOT"] = "not";
+    })(exports.QueryOperator || (exports.QueryOperator = {}));
     exports.PageTypes = void 0;
     (function (PageTypes) {
         PageTypes["LANDING"] = "LANDING";
@@ -452,6 +463,35 @@
             },
             componentProperties: {}
         },
+        "faq": {
+            _id: "",
+            shortId: "faq",
+            compatibleWith: ["table_view"],
+            compatibleDisplayType: [exports.ViewType.List],
+            compatibleLanguages: [exports.CodingLanguages.Javascript, exports.CodingLanguages.Typescript, exports.CodingLanguages.React],
+            name: "Frequently Asked Questions",
+            ownerId: "",
+            version: 1,
+            previewImageUrls: ["/images/templates/faq.png"],
+            description: "This template displays each row of data as a questions and answers format.",
+            visibility: "PUBLIC",
+            pages: [exports.PageTypes.LIST],
+            properties: {},
+            pageContent: { "LIST": "<li><input type='checkbox' checked><i></i><h1 class='question'>{{question}}</h1><p>{{answer}}</p></li>" },
+            templateFields: {
+                question: {
+                    name: "Question",
+                    description: "Question",
+                    compatibleTypes: [], //empty for all
+                },
+                answer: {
+                    name: "Answer",
+                    description: "Answer",
+                    compatibleTypes: []
+                }
+            },
+            componentProperties: {}
+        },
         "store_locator": {
             _id: "",
             shortId: "store_locator",
@@ -801,6 +841,22 @@
             style: "@import url('https://fonts.googleapis.com/css2?family=Open+Sans&display=swap'); .job_posting_plain .container a { color: #000; text-decoration: none; } .job_posting_plain .container a:hover { text-decoration: underline; } .job_posting_plain .container { display: block; font-family: 'Open Sans', sans-serif; border-top: 1px solid #aaa; margin: 5px 0 5px 0; padding: 15px 0 15px 0; } .job_posting_plain .container .title { font-size: 20px; margin-bottom: 5px; } .job_posting_plain .container .description { display: block; font-size: 16px; } .job_posting_plain .pagination a, .job_posting_plain .pagination .currentPage { margin: 2px; padding: 3px; }",
             containerClassNames: ["job_posting_plain"],
             colorTheme: ["#fff", "#000", "#aaa"],
+            properties: {},
+            componentProperties: {}
+        },
+        "faq_plain": {
+            _id: "",
+            shortId: "faq_plain",
+            name: "Plain",
+            compatibleWith: ["faq"],
+            ownerId: "",
+            version: 1,
+            previewImageUrls: [],
+            description: "Standard FAQ style.",
+            visibility: "PUBLIC",
+            style: "@import url('https://fonts.googleapis.com/css2?family=Open+Sans&display=swap'); .faq_plain .transition, .faq_plain li i:before, li i:after, .faq_plain p { transition: all 0.25s ease-in-out; } .faq_plain .flipIn, .faq_plain li, h1 { animation: flipdown 0.5s ease both; } .faq_plain .no-select, .faq_plain .question { -webkit-tap-highlight-color: rgba(0, 0, 0, 0); -webkit-touch-callout: none; -webkit-user-select: none; -khtml-user-select: none; -moz-user-select: none; -ms-user-select: none; user-select: none; font-family: 'Open Sans', sans-serif; font-size: 20px; font-weight: 500; margin: 0; } .faq_plain p { overflow: hidden; opacity: 1; transform: translate(0, 0); margin-top: 14px; z-index: 2; font-family: 'Open Sans', sans-serif; font-size: 14px; } .faq_plain { list-style: none; perspective: 900; padding: 0; margin: 0; } .faq_plain li { position: relative; padding: 0; margin: 0; padding-bottom: 4px; padding-top: 18px; border-top: 1px solid #dce7eb; } .faq_plain li:nth-of-type(1) { animation-delay: 0.5s; } .faq_plain li:nth-of-type(2) { animation-delay: 0.75s; } .faq_plain li:nth-of-type(3) { animation-delay: 1s; } .faq_plain li:last-of-type { padding-bottom: 0; } .faq_plain li i { position: absolute; transform: translate(-6px, 0); margin-top: 16px; right: 0; } .faq_plain li i:before, li i:after { content: ''; position: absolute; background-color: #333333; width: 3px; height: 9px; } .faq_plain li i:before { transform: translate(-2px, 0) rotate(45deg); } .faq_plain li i:after { transform: translate(2px, 0) rotate(-45deg); } .faq_plain li input[type=checkbox] { position: absolute; cursor: pointer; width: 100%; height: 100%; z-index: 1; opacity: 0; } .faq_plain li input[type=checkbox]:checked ~ p { margin-top: 0; max-height: 0; opacity: 0; transform: translate(0, 50%); } .faq_plain li input[type=checkbox]:checked ~ i:before { transform: translate(2px, 0) rotate(45deg); } .faq_plain li input[type=checkbox]:checked ~ i:after { transform: translate(-2px, 0) rotate(-45deg); } @keyframes flipdown { 0% { opacity: 0; transform-origin: top center; transform: rotateX(-90deg); } 5% { opacity: 1; } 80% { transform: rotateX(8deg); } 83% { transform: rotateX(6deg); } 92% { transform: rotateX(-3deg); } 100% { transform-origin: top center; transform: rotateX(0deg); }}",
+            containerClassNames: ["faq_plain"],
+            colorTheme: ["#fff", "#000", "#333"],
             properties: {},
             componentProperties: {}
         },

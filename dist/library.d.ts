@@ -40,6 +40,24 @@ export declare enum SortBy {
     RECENT = "recent",
     OLDEST = "oldest"
 }
+export declare enum QueryType {
+    EXACT = "exact",
+    KEYWORD = "keyword"
+}
+export declare enum QueryOperator {
+    AND = "and",
+    OR = "or",
+    NOT = "not"
+}
+export interface QueryParam {
+    type: QueryType;
+    condition: QueryOperator;
+    query: string;
+}
+export interface AirJamQuery {
+    simple: string;
+    query: QueryParam[];
+}
 export interface DataSourceField {
     columnIdx: number;
     fieldName: string;
