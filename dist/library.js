@@ -1282,12 +1282,7 @@
         CodingLanguages["ReactNative"] = "react_native";
     })(CodingLanguages || (CodingLanguages = {}));
 
-    var DataSourceType;
-    (function (DataSourceType) {
-        DataSourceType["SINGLE"] = "SINGLE";
-        DataSourceType["JOIN"] = "JOIN";
-    })(DataSourceType || (DataSourceType = {}));
-    var DataSourceFieldType;
+    exports.DataSourceFieldType = void 0;
     (function (DataSourceFieldType) {
         DataSourceFieldType["Text"] = "text";
         DataSourceFieldType["Number"] = "number";
@@ -1299,20 +1294,15 @@
         DataSourceFieldType["LatLng"] = "latlng";
         DataSourceFieldType["Address"] = "address";
         DataSourceFieldType["Boolean"] = "boolean";
-    })(DataSourceFieldType || (DataSourceFieldType = {}));
+    })(exports.DataSourceFieldType || (exports.DataSourceFieldType = {}));
 
-    //     Board = "view_board", not used, for now.
-    var ViewType;
-    (function (ViewType) {
-        ViewType["Spotlight"] = "view_spotlight";
-        ViewType["List"] = "view_list";
-        ViewType["Gallery"] = "view_gallery";
-        ViewType["Graph"] = "view_graph";
-        ViewType["Table"] = "view_table";
-        ViewType["Map"] = "view_map";
-        ViewType["Nearby"] = "view_nearby";
-    })(ViewType || (ViewType = {}));
-    var PageTypes;
+    exports.DataSourceType = void 0;
+    (function (DataSourceType) {
+        DataSourceType["SINGLE"] = "SINGLE";
+        DataSourceType["JOIN"] = "JOIN";
+    })(exports.DataSourceType || (exports.DataSourceType = {}));
+
+    exports.PageTypes = void 0;
     (function (PageTypes) {
         PageTypes["LANDING"] = "LANDING";
         PageTypes["LIST"] = "LIST";
@@ -1322,14 +1312,26 @@
         PageTypes["ITEM"] = "ITEM";
         PageTypes["MARKER"] = "MARKER";
         PageTypes["SCRIPT"] = "SCRIPT";
-    })(PageTypes || (PageTypes = {}));
+    })(exports.PageTypes || (exports.PageTypes = {}));
+
+    //     Board = "view_board", not used, for now.
+    exports.TableViewViewType = void 0;
+    (function (TableViewViewType) {
+        TableViewViewType["Spotlight"] = "view_spotlight";
+        TableViewViewType["List"] = "view_list";
+        TableViewViewType["Gallery"] = "view_gallery";
+        TableViewViewType["Graph"] = "view_graph";
+        TableViewViewType["Table"] = "view_table";
+        TableViewViewType["Map"] = "view_map";
+        TableViewViewType["Nearby"] = "view_nearby";
+    })(exports.TableViewViewType || (exports.TableViewViewType = {}));
 
     var static_templates = {
         "card_list": {
             _id: "",
             shortId: "card_list",
             compatibleWith: ["table_view"],
-            compatibleDisplayType: [ViewType.List, ViewType.Gallery],
+            compatibleDisplayType: [exports.TableViewViewType.List, exports.TableViewViewType.Gallery],
             compatibleLanguages: [CodingLanguages.Javascript, CodingLanguages.Typescript, CodingLanguages.React],
             name: "Card List",
             ownerId: "",
@@ -1337,8 +1339,8 @@
             previewImageUrls: ["/images/templates/card_list.png"],
             description: "This template displays each row of data as a card, with a title, an image, and a link to redirect to.",
             visibility: "PUBLIC",
-            pages: [PageTypes.LIST],
-            dataSourceType: DataSourceType.SINGLE,
+            pages: [exports.PageTypes.LIST],
+            dataSourceType: exports.DataSourceType.SINGLE,
             properties: {},
             pageContent: { "LIST": "<div class='container'><span class='title'>{{title}}</span><span class='image'><img src='{{thumbnail}}'/></span><span class='description'>{{description}}</span><span><a href='{{link}}'>{{linkText}}</a></span></div>" },
             templateFields: {
@@ -1350,7 +1352,7 @@
                 link: {
                     name: "Link",
                     description: "Link to navigate to",
-                    compatibleTypes: [DataSourceFieldType.Link]
+                    compatibleTypes: [exports.DataSourceFieldType.Link]
                 },
                 linkText: {
                     name: "Link Text",
@@ -1360,7 +1362,7 @@
                 thumbnail: {
                     name: "Thumbnail image",
                     description: "Main image for the card",
-                    compatibleTypes: [DataSourceFieldType.Link],
+                    compatibleTypes: [exports.DataSourceFieldType.Link],
                 },
                 description: {
                     name: "Description",
@@ -1374,7 +1376,7 @@
             _id: "",
             shortId: "standard_table",
             compatibleWith: ["table_view"],
-            compatibleDisplayType: [ViewType.Table],
+            compatibleDisplayType: [exports.TableViewViewType.Table],
             compatibleLanguages: [CodingLanguages.Javascript, CodingLanguages.Typescript, CodingLanguages.React],
             name: "Table",
             ownerId: "",
@@ -1382,10 +1384,10 @@
             previewImageUrls: ["/images/templates/table.png"],
             description: "Table template shows your data in a tabular format.",
             visibility: "PUBLIC",
-            pages: [PageTypes.LIST],
+            pages: [exports.PageTypes.LIST],
             pageContent: {},
             templateFields: {},
-            dataSourceType: DataSourceType.SINGLE,
+            dataSourceType: exports.DataSourceType.SINGLE,
             properties: {
                 caption: {
                     name: "Caption",
@@ -1400,7 +1402,7 @@
             _id: "",
             shortId: "barchart",
             compatibleWith: ["table_view"],
-            compatibleDisplayType: [ViewType.Graph],
+            compatibleDisplayType: [exports.TableViewViewType.Graph],
             compatibleLanguages: [CodingLanguages.Javascript, CodingLanguages.Typescript, CodingLanguages.React],
             name: "Bar Chart",
             ownerId: "",
@@ -1408,10 +1410,10 @@
             previewImageUrls: ["/images/templates/barchart.png"],
             description: "The bar chart template assumes each column in your data as a bar. Also, the data must be in numeric format to work.",
             visibility: "PUBLIC",
-            pages: [PageTypes.LIST],
+            pages: [exports.PageTypes.LIST],
             pageContent: {},
             templateFields: {},
-            dataSourceType: DataSourceType.SINGLE,
+            dataSourceType: exports.DataSourceType.SINGLE,
             properties: {
                 useFirstColumnAsLabels: {
                     name: "Use First Column as Label",
@@ -1452,7 +1454,7 @@
             _id: "",
             shortId: "piechart",
             compatibleWith: ["table_view"],
-            compatibleDisplayType: [ViewType.Graph],
+            compatibleDisplayType: [exports.TableViewViewType.Graph],
             compatibleLanguages: [CodingLanguages.Javascript, CodingLanguages.Typescript, CodingLanguages.React],
             name: "Pie Chart",
             ownerId: "",
@@ -1460,10 +1462,10 @@
             previewImageUrls: ["/images/templates/piechart.png"],
             description: "Pie chart template uses the first two rows of your data to visualize the chart and its labels. Please note, data must be in numeric format to work.",
             visibility: "PUBLIC",
-            pages: [PageTypes.LIST],
+            pages: [exports.PageTypes.LIST],
             pageContent: {},
             templateFields: {},
-            dataSourceType: DataSourceType.SINGLE,
+            dataSourceType: exports.DataSourceType.SINGLE,
             properties: {
                 useFirstColumnAsLabels: {
                     name: "Use First Column as Label",
@@ -1486,7 +1488,7 @@
             _id: "",
             shortId: "doughnutchart",
             compatibleWith: ["table_view"],
-            compatibleDisplayType: [ViewType.Graph],
+            compatibleDisplayType: [exports.TableViewViewType.Graph],
             compatibleLanguages: [CodingLanguages.Javascript, CodingLanguages.Typescript, CodingLanguages.React],
             name: "Doughnut Chart",
             ownerId: "",
@@ -1494,10 +1496,10 @@
             previewImageUrls: ["/images/templates/piechart.png"],
             description: "Doughnut chart template uses the first two rows of your data to visualize the chart and its labels. Please note, data must be in numeric format to work.",
             visibility: "PUBLIC",
-            pages: [PageTypes.LIST],
+            pages: [exports.PageTypes.LIST],
             pageContent: {},
             templateFields: {},
-            dataSourceType: DataSourceType.SINGLE,
+            dataSourceType: exports.DataSourceType.SINGLE,
             properties: {
                 useFirstColumnAsLabels: {
                     name: "Use First Column as Label",
@@ -1520,7 +1522,7 @@
             _id: "",
             shortId: "linechart",
             compatibleWith: ["table_view"],
-            compatibleDisplayType: [ViewType.Graph],
+            compatibleDisplayType: [exports.TableViewViewType.Graph],
             compatibleLanguages: [CodingLanguages.Javascript, CodingLanguages.Typescript, CodingLanguages.React],
             name: "Line Chart",
             ownerId: "",
@@ -1528,10 +1530,10 @@
             previewImageUrls: ["/images/templates/linechart.png"],
             description: "Line chart template requires all non-label data to be in numeric format to work.",
             visibility: "PUBLIC",
-            pages: [PageTypes.LIST],
+            pages: [exports.PageTypes.LIST],
             pageContent: {},
             templateFields: {},
-            dataSourceType: DataSourceType.SINGLE,
+            dataSourceType: exports.DataSourceType.SINGLE,
             properties: {
                 useFirstColumnAsLabels: {
                     name: "Use First Column as Label",
@@ -1566,7 +1568,7 @@
             _id: "",
             shortId: "formal_menu",
             compatibleWith: ["table_view"],
-            compatibleDisplayType: [ViewType.List],
+            compatibleDisplayType: [exports.TableViewViewType.List],
             compatibleLanguages: [CodingLanguages.Javascript, CodingLanguages.Typescript, CodingLanguages.React],
             name: "Formal Menu",
             ownerId: "",
@@ -1574,8 +1576,8 @@
             previewImageUrls: ["/images/templates/fine_dining_menu.png"],
             description: "This template displays data as a menu / catalog of items with prices.",
             visibility: "PUBLIC",
-            pages: [PageTypes.LIST],
-            dataSourceType: DataSourceType.SINGLE,
+            pages: [exports.PageTypes.LIST],
+            dataSourceType: exports.DataSourceType.SINGLE,
             properties: {},
             pageContent: { "LIST": "<div class='container'><span class='name'>{{name}}</span><span class='description'>{{description}}</span><span class='price'>{{price}}</span></div>" },
             templateFields: {
@@ -1601,7 +1603,7 @@
             _id: "",
             shortId: "graphic_menu",
             compatibleWith: ["table_view"],
-            compatibleDisplayType: [ViewType.Gallery],
+            compatibleDisplayType: [exports.TableViewViewType.Gallery],
             compatibleLanguages: [CodingLanguages.Javascript, CodingLanguages.Typescript, CodingLanguages.React],
             name: "Graphic Menu",
             ownerId: "",
@@ -1609,8 +1611,8 @@
             previewImageUrls: ["/images/templates/boxed_list.png", "/images/templates/boxed_menu.png"],
             description: "This template displays data as a menu / catalog of items with prices and images.",
             visibility: "PUBLIC",
-            pages: [PageTypes.LIST],
-            dataSourceType: DataSourceType.SINGLE,
+            pages: [exports.PageTypes.LIST],
+            dataSourceType: exports.DataSourceType.SINGLE,
             properties: {},
             pageContent: { "LIST": "<div class='container'><span class='image'><img src='{{image}}'/></span><span class='name'>{{name}}</span><span class='price'>{{price}}</span><span class='description'>{{description}}</span></div>" },
             templateFields: {
@@ -1627,7 +1629,7 @@
                 image: {
                     name: "Item Image",
                     description: "Image for the item",
-                    compatibleTypes: [DataSourceFieldType.Link],
+                    compatibleTypes: [exports.DataSourceFieldType.Link],
                 },
                 description: {
                     name: "Description",
@@ -1641,7 +1643,7 @@
             _id: "",
             shortId: "web_spotlight",
             compatibleWith: ["table_view"],
-            compatibleDisplayType: [ViewType.Spotlight],
+            compatibleDisplayType: [exports.TableViewViewType.Spotlight],
             compatibleLanguages: [CodingLanguages.Javascript, CodingLanguages.Typescript, CodingLanguages.React],
             name: "Web Spotlight",
             ownerId: "",
@@ -1649,8 +1651,8 @@
             previewImageUrls: ["/images/templates/web_spotlight.png"],
             description: "This template displays a url of a given row",
             visibility: "PUBLIC",
-            pages: [PageTypes.LIST],
-            dataSourceType: DataSourceType.SINGLE,
+            pages: [exports.PageTypes.LIST],
+            dataSourceType: exports.DataSourceType.SINGLE,
             properties: {
                 autoDisplayFirstRow: {
                     name: "Auto display first row",
@@ -1699,7 +1701,7 @@
                 url: {
                     name: "Url",
                     description: "URL to display",
-                    compatibleTypes: [DataSourceFieldType.Link],
+                    compatibleTypes: [exports.DataSourceFieldType.Link],
                 },
                 static: {
                     name: "Static content",
@@ -1713,7 +1715,7 @@
             _id: "",
             shortId: "kiosk_guide_spotlight",
             compatibleWith: ["table_view"],
-            compatibleDisplayType: [ViewType.Spotlight],
+            compatibleDisplayType: [exports.TableViewViewType.Spotlight],
             compatibleLanguages: [CodingLanguages.Javascript, CodingLanguages.Typescript, CodingLanguages.React],
             name: "Kiosk Guide Spotlight",
             ownerId: "",
@@ -1721,8 +1723,8 @@
             previewImageUrls: ["/images/templates/kiosk_spotlight.png"],
             description: "This template vends kiosk-style guide content",
             visibility: "PUBLIC",
-            pages: [PageTypes.DETAIL],
-            dataSourceType: DataSourceType.SINGLE,
+            pages: [exports.PageTypes.DETAIL],
+            dataSourceType: exports.DataSourceType.SINGLE,
             properties: {
                 autoDisplayFirstRow: {
                     name: "Auto display first row",
@@ -1766,12 +1768,12 @@
                 image: {
                     name: "Image",
                     description: "Link to the the main image of the artifact",
-                    compatibleTypes: [DataSourceFieldType.Link],
+                    compatibleTypes: [exports.DataSourceFieldType.Link],
                 },
                 audio: {
                     name: "Audio",
                     description: "Link to the audio description of the artifact",
-                    compatibleTypes: [DataSourceFieldType.Link],
+                    compatibleTypes: [exports.DataSourceFieldType.Link],
                 },
                 description: {
                     name: "Description",
@@ -1785,7 +1787,7 @@
             _id: "",
             shortId: "featured_signage",
             compatibleWith: ["table_view"],
-            compatibleDisplayType: [ViewType.Gallery],
+            compatibleDisplayType: [exports.TableViewViewType.Gallery],
             compatibleLanguages: [CodingLanguages.Javascript, CodingLanguages.Typescript, CodingLanguages.React],
             name: "Signage - Featured",
             ownerId: "",
@@ -1793,8 +1795,8 @@
             previewImageUrls: ["/images/templates/job_postings.png"],
             description: "This template is designed for digital signage, optimized for displays with width greater than 1024 pixels wide.",
             visibility: "PUBLIC",
-            pages: [PageTypes.LANDING],
-            dataSourceType: DataSourceType.SINGLE,
+            pages: [exports.PageTypes.LANDING],
+            dataSourceType: exports.DataSourceType.SINGLE,
             properties: {
                 featuredImageStyle: {
                     name: "Image Display Style",
@@ -1860,7 +1862,7 @@
                 featuredImage: {
                     name: "Featured Image",
                     description: "(Optional) URL of the image to display to feature",
-                    compatibleTypes: [DataSourceFieldType.Link],
+                    compatibleTypes: [exports.DataSourceFieldType.Link],
                 },
                 price1: {
                     name: "Price 1",
@@ -1880,7 +1882,7 @@
                 soldOut: {
                     name: "Sold Out",
                     description: "(Optional) Field to check if an item is sold out",
-                    compatibleTypes: [DataSourceFieldType.Boolean],
+                    compatibleTypes: [exports.DataSourceFieldType.Boolean],
                 },
             },
             componentProperties: {}
@@ -1889,7 +1891,7 @@
             _id: "",
             shortId: "detailed_signage",
             compatibleWith: ["table_view"],
-            compatibleDisplayType: [ViewType.Gallery],
+            compatibleDisplayType: [exports.TableViewViewType.Gallery],
             compatibleLanguages: [CodingLanguages.Javascript, CodingLanguages.Typescript, CodingLanguages.React],
             name: "Signage - Detailed",
             ownerId: "",
@@ -1897,8 +1899,8 @@
             previewImageUrls: ["/images/templates/job_postings.png"],
             description: "This template is designed for digital signage, optimized for displays with width greater than 1024 pixels wide.",
             visibility: "PUBLIC",
-            pages: [PageTypes.LANDING],
-            dataSourceType: DataSourceType.JOIN,
+            pages: [exports.PageTypes.LANDING],
+            dataSourceType: exports.DataSourceType.JOIN,
             properties: {
                 displaySoldOut: {
                     name: "Show Sold-out Items",
@@ -2008,7 +2010,7 @@
                 soldOut: {
                     name: "Sold Out",
                     description: "(Optional) Field to check if an item is sold out",
-                    compatibleTypes: [DataSourceFieldType.Boolean],
+                    compatibleTypes: [exports.DataSourceFieldType.Boolean],
                 },
             },
             componentProperties: {
@@ -2019,7 +2021,7 @@
             _id: "",
             shortId: "qr_menu",
             compatibleWith: ["table_view"],
-            compatibleDisplayType: [ViewType.Gallery],
+            compatibleDisplayType: [exports.TableViewViewType.Gallery],
             compatibleLanguages: [CodingLanguages.Javascript, CodingLanguages.Typescript, CodingLanguages.React],
             name: "Mobile Menu",
             ownerId: "",
@@ -2027,8 +2029,8 @@
             previewImageUrls: ["/images/templates/job_postings.png"],
             description: "This template is optimized for showing menus on mobile devices.",
             visibility: "PUBLIC",
-            pages: [PageTypes.LANDING],
-            dataSourceType: DataSourceType.JOIN,
+            pages: [exports.PageTypes.LANDING],
+            dataSourceType: exports.DataSourceType.JOIN,
             properties: {
                 displaySoldOut: {
                     name: "Show Sold-out Items",
@@ -2102,7 +2104,7 @@
                 soldOut: {
                     name: "Sold Out",
                     description: "(Optional) Field to check if an item is sold out",
-                    compatibleTypes: [DataSourceFieldType.Boolean],
+                    compatibleTypes: [exports.DataSourceFieldType.Boolean],
                 },
             },
             componentProperties: {
@@ -2113,7 +2115,7 @@
             _id: "",
             shortId: "job_postings",
             compatibleWith: ["table_view"],
-            compatibleDisplayType: [ViewType.List],
+            compatibleDisplayType: [exports.TableViewViewType.List],
             compatibleLanguages: [CodingLanguages.Javascript, CodingLanguages.Typescript, CodingLanguages.React],
             name: "Job Postings",
             ownerId: "",
@@ -2121,8 +2123,8 @@
             previewImageUrls: ["/images/templates/job_postings.png"],
             description: "This template displays each row of data as a card, with a title, an image, and a link to redirect to.",
             visibility: "PUBLIC",
-            pages: [PageTypes.LIST],
-            dataSourceType: DataSourceType.SINGLE,
+            pages: [exports.PageTypes.LIST],
+            dataSourceType: exports.DataSourceType.SINGLE,
             properties: {},
             pageContent: { "LIST": "<div class='container'><span class='title'><a href='{{link}}'>{{title}}</a></span><span class='description'>{{description}}</span></div>" },
             templateFields: {
@@ -2134,7 +2136,7 @@
                 link: {
                     name: "Call To Action Link",
                     description: "Link to navigate to",
-                    compatibleTypes: [DataSourceFieldType.Link]
+                    compatibleTypes: [exports.DataSourceFieldType.Link]
                 },
                 description: {
                     name: "Description",
@@ -2148,7 +2150,7 @@
             _id: "",
             shortId: "faq",
             compatibleWith: ["table_view"],
-            compatibleDisplayType: [ViewType.List],
+            compatibleDisplayType: [exports.TableViewViewType.List],
             compatibleLanguages: [CodingLanguages.Javascript, CodingLanguages.Typescript, CodingLanguages.React],
             name: "FAQs",
             ownerId: "",
@@ -2156,8 +2158,8 @@
             previewImageUrls: ["/images/templates/faq.png"],
             description: "This template displays each row of data as a questions and answers format.",
             visibility: "PUBLIC",
-            pages: [PageTypes.LIST],
-            dataSourceType: DataSourceType.SINGLE,
+            pages: [exports.PageTypes.LIST],
+            dataSourceType: exports.DataSourceType.SINGLE,
             properties: {},
             pageContent: { "LIST": "<li><input type='checkbox' checked><i></i><h1 class='question'>{{question}}</h1><p>{{answer}}</p></li>" },
             templateFields: {
@@ -2178,7 +2180,7 @@
             _id: "",
             shortId: "store_locator",
             compatibleWith: ["table_view"],
-            compatibleDisplayType: [ViewType.Map],
+            compatibleDisplayType: [exports.TableViewViewType.Map],
             compatibleLanguages: [CodingLanguages.Javascript, CodingLanguages.Typescript],
             name: "Store Locator",
             ownerId: "",
@@ -2186,8 +2188,8 @@
             previewImageUrls: ["/images/templates/store_locator.png"],
             description: "This template displays each row of data as a pinpoint on a map.",
             visibility: "PUBLIC",
-            pages: [PageTypes.LIST, PageTypes.MARKER],
-            dataSourceType: DataSourceType.SINGLE,
+            pages: [exports.PageTypes.LIST, exports.PageTypes.MARKER],
+            dataSourceType: exports.DataSourceType.SINGLE,
             properties: {},
             pageContent: {
                 "LIST": "<div class='container'><span class='label'>{{index}}. {{label}}</span><span class='image'><img src='{{image}}'/></span><span class='description'>{{description}}</span><span class='location'><i class='fa-solid fa-map-pin icon'></i>{{location}}</span><span class='callouts'><a class='callout' href='{{calloutLink1}}'>{{calloutLinkText1}}</a><a class='callout' href='{{calloutLink2}}'>{{calloutLinkText2}}</a></span></div>",
@@ -2202,7 +2204,7 @@
                 location: {
                     name: "Location",
                     description: "Address or latitude / longitude of the place marker",
-                    compatibleTypes: [DataSourceFieldType.Address, DataSourceFieldType.LatLng], //empty for all
+                    compatibleTypes: [exports.DataSourceFieldType.Address, exports.DataSourceFieldType.LatLng], //empty for all
                 },
                 description: {
                     name: "Description",
@@ -2212,17 +2214,17 @@
                 markerOverride: {
                     name: "Marker Image",
                     description: "(Optional) URL of the image to use for place marker",
-                    compatibleTypes: [DataSourceFieldType.Link],
+                    compatibleTypes: [exports.DataSourceFieldType.Link],
                 },
                 image: {
                     name: "Main Image",
                     description: "(Optional) URL of the image to use in the description of the place marker",
-                    compatibleTypes: [DataSourceFieldType.Link],
+                    compatibleTypes: [exports.DataSourceFieldType.Link],
                 },
                 calloutLink1: {
                     name: "Callout Link",
                     description: "(Optional) A link to call out to",
-                    compatibleTypes: [DataSourceFieldType.Link],
+                    compatibleTypes: [exports.DataSourceFieldType.Link],
                 },
                 calloutLinkText1: {
                     name: "Callout Link Text",
@@ -2232,7 +2234,7 @@
                 calloutLink2: {
                     name: "Second Callout Link",
                     description: "(Optional) A second link to call out to",
-                    compatibleTypes: [DataSourceFieldType.Link],
+                    compatibleTypes: [exports.DataSourceFieldType.Link],
                 },
                 calloutLinkText2: {
                     name: "Second Callout Link Text",
@@ -2246,7 +2248,7 @@
             _id: "",
             shortId: "self_tour",
             compatibleWith: ["table_view"],
-            compatibleDisplayType: [ViewType.Nearby],
+            compatibleDisplayType: [exports.TableViewViewType.Nearby],
             compatibleLanguages: [CodingLanguages.ReactNative],
             name: "Self-Guided tours",
             ownerId: "",
@@ -2254,8 +2256,8 @@
             previewImageUrls: ["/images/templates/self_guide.png"],
             description: "This template vends self-guided tour content for mobile devices.",
             visibility: "PUBLIC",
-            pages: [PageTypes.LANDING, PageTypes.DETAIL],
-            dataSourceType: DataSourceType.SINGLE,
+            pages: [exports.PageTypes.LANDING, exports.PageTypes.DETAIL],
+            dataSourceType: exports.DataSourceType.SINGLE,
             properties: {
                 autoPlayAudio: {
                     name: "Autoplay audio",
@@ -2300,12 +2302,12 @@
                 image: {
                     name: "Image",
                     description: "Link to the the main image of the artifact",
-                    compatibleTypes: [DataSourceFieldType.Link],
+                    compatibleTypes: [exports.DataSourceFieldType.Link],
                 },
                 audio: {
                     name: "Audio",
                     description: "Link to the audio description of the artifact",
-                    compatibleTypes: [DataSourceFieldType.Link],
+                    compatibleTypes: [exports.DataSourceFieldType.Link],
                 },
                 description: {
                     name: "Description",
@@ -2317,10 +2319,274 @@
         },
     };
 
+    var CALENDAR_CONFIG_ENDPOINT = '/s/calendar?id=';
+    var CALENDAR_BOOK_ENDPOINT = '/s/calendar/book?id=';
+    var CALENDAR_MY_RESERVATIONS_ENDPOINT = '/s/calendar/reservations?id=';
+    var DEFAULT_DESCRIPTION_LENGTH_CUTOFF = 30;
+    // TODO deprecate this, not very i18n friendly
+    var DEFAULT_TIME_FORMAT = {
+        hour: '2-digit',
+        minute: '2-digit',
+        hour12: true,
+    };
+    var HOUR_ONLY = {
+        hour: 'numeric',
+    };
+
+    var addDays = function (date, days) {
+        var newDate = new Date(date);
+        newDate.setDate(date.getDate() + days);
+        return newDate;
+    };
+    var compareEventsByStartTime = function (a, b) {
+        if (a.startTimeUtc < b.startTimeUtc) {
+            return -1;
+        }
+        if (a.startTimeUtc > b.startTimeUtc) {
+            return 1;
+        }
+        return 0;
+    };
+    var minutesSinceMidnight = function (dateObj) {
+        if (!dateObj) {
+            return 0;
+        }
+        var date = new Date(dateObj);
+        var minutes = date.getMinutes();
+        var hours = date.getHours();
+        return 60 * hours + minutes;
+    };
+    var getEventTime = function (event) {
+        var start = new Date(event.startTimeUtc);
+        var end = new Date(event.endTimeUtc);
+        var isAllDay = event.isAllDay;
+        if (isAllDay) {
+            return 'All Day';
+        }
+        if (end && end > new Date(0)) {
+            return (start.toLocaleTimeString([], DEFAULT_TIME_FORMAT) +
+                ' ~ ' +
+                end.toLocaleTimeString([], DEFAULT_TIME_FORMAT));
+        }
+        return start.toLocaleTimeString([], DEFAULT_TIME_FORMAT);
+    };
+    var formatReservationTimeFrame = function (reservation) {
+        var start = new Date(reservation.startTimeUtc);
+        var end = new Date(reservation.endTimeUtc);
+        if (end && end > new Date(0)) {
+            return (start.toLocaleTimeString([], DEFAULT_TIME_FORMAT) +
+                ' ~ ' +
+                end.toLocaleTimeString([], DEFAULT_TIME_FORMAT));
+        }
+        return start.toLocaleTimeString([], DEFAULT_TIME_FORMAT);
+    };
+    var getDateInLocalTime = function (dateObj) {
+        return new Date(dateObj.toString().split('GMT')[0] + ' UTC')
+            .toISOString()
+            .split('T')[0];
+    };
+
+    exports.CalendarBookingUnit = void 0;
+    (function (CalendarBookingUnit) {
+        CalendarBookingUnit["Fixed"] = "fixed";
+        CalendarBookingUnit["Flexible"] = "flexible";
+    })(exports.CalendarBookingUnit || (exports.CalendarBookingUnit = {}));
+
+    exports.CalendarBookOn = void 0;
+    (function (CalendarBookOn) {
+        CalendarBookOn["EXISTING_EVENTS"] = "book_on_events";
+        CalendarBookOn["EXISTING_EVENTS_EXCLUSIVELY"] = "book_exclusively_on_events";
+        CalendarBookOn["FREE_SLOTS"] = "book_on_free_slots";
+    })(exports.CalendarBookOn || (exports.CalendarBookOn = {}));
+
+    exports.CalendarDataProvider = void 0;
+    (function (CalendarDataProvider) {
+        CalendarDataProvider["Google"] = "google";
+        CalendarDataProvider["None"] = "none";
+    })(exports.CalendarDataProvider || (exports.CalendarDataProvider = {}));
+
+    exports.CalendarEventReservableUntilType = void 0;
+    (function (CalendarEventReservableUntilType) {
+        CalendarEventReservableUntilType["Indefinite"] = "indefinite";
+        CalendarEventReservableUntilType["FixedTime"] = "fixed_time";
+        CalendarEventReservableUntilType["Duration"] = "duration";
+    })(exports.CalendarEventReservableUntilType || (exports.CalendarEventReservableUntilType = {}));
+
+    exports.CalendarReservationPriceUnit = void 0;
+    (function (CalendarReservationPriceUnit) {
+        CalendarReservationPriceUnit["WholeEvent"] = "whole_event";
+        CalendarReservationPriceUnit["PerIncrement"] = "increment";
+    })(exports.CalendarReservationPriceUnit || (exports.CalendarReservationPriceUnit = {}));
+
+    var CalendarResourceOperatingHoursGrouping;
+    (function (CalendarResourceOperatingHoursGrouping) {
+        CalendarResourceOperatingHoursGrouping["SameHoursDaily"] = "same_hours_daily";
+        CalendarResourceOperatingHoursGrouping["VariesDayByDay"] = "varies_day_by_day";
+    })(CalendarResourceOperatingHoursGrouping || (CalendarResourceOperatingHoursGrouping = {}));
+
+    var CalendarResourceOperatingHoursType;
+    (function (CalendarResourceOperatingHoursType) {
+        CalendarResourceOperatingHoursType["NoOperatingHours"] = "no_operating_hours";
+        CalendarResourceOperatingHoursType["HasOperatingHours"] = "has_operating_hours";
+    })(CalendarResourceOperatingHoursType || (CalendarResourceOperatingHoursType = {}));
+
+    exports.EventReservationStatus = void 0;
+    (function (EventReservationStatus) {
+        EventReservationStatus["Reserved"] = "reserved";
+        EventReservationStatus["Canceled"] = "canceled";
+        EventReservationStatus["Requested"] = "reservation_requested";
+    })(exports.EventReservationStatus || (exports.EventReservationStatus = {}));
+
+    exports.GetEventsDuration = void 0;
+    (function (GetEventsDuration) {
+        GetEventsDuration["ExactDay"] = "EXACT_DAY";
+        GetEventsDuration["WholeMonth"] = "WHOLE_MONTH";
+    })(exports.GetEventsDuration || (exports.GetEventsDuration = {}));
+
+    exports.ReservationModeration = void 0;
+    (function (ReservationModeration) {
+        ReservationModeration["OPEN"] = "open";
+        ReservationModeration["SUPER_ADMIN_MODERATED"] = "moderated";
+    })(exports.ReservationModeration || (exports.ReservationModeration = {}));
+
+    exports.CalendarViewType = void 0;
+    (function (CalendarViewType) {
+        CalendarViewType["CalendarView"] = "CALENDAR_VIEW";
+        CalendarViewType["CalendarBook"] = "CALENDAR_BOOK";
+        CalendarViewType["CalendarExclusiveBook"] = "CALENDAR_EXCLUSIVE_BOOK";
+        CalendarViewType["DayView"] = "DAY_VIEW";
+        CalendarViewType["DayViewByLocation"] = "DAY_VIEW_BY_LOCATION";
+        CalendarViewType["DayList"] = "DAY_LIST";
+        CalendarViewType["List"] = "LIST";
+        CalendarViewType["MyEventsList"] = "MY_EVENT_LIST";
+    })(exports.CalendarViewType || (exports.CalendarViewType = {}));
+
+    exports.QueryOperator = void 0;
+    (function (QueryOperator) {
+        QueryOperator["AND"] = "and";
+        QueryOperator["OR"] = "or";
+        QueryOperator["NOT"] = "not";
+    })(exports.QueryOperator || (exports.QueryOperator = {}));
+
+    exports.QueryType = void 0;
+    (function (QueryType) {
+        QueryType["EXACT"] = "exact";
+        QueryType["KEYWORD"] = "keyword";
+    })(exports.QueryType || (exports.QueryType = {}));
+
+    var DEFAULT_HOST = 'https://airjam.co';
+
+    exports.PaginationStyle = void 0;
+    (function (PaginationStyle) {
+        PaginationStyle["Paged"] = "pagination_paged";
+        PaginationStyle["InfiniteScroll"] = "pagination_infinite";
+        PaginationStyle["NoPagination"] = "pagination_none";
+    })(exports.PaginationStyle || (exports.PaginationStyle = {}));
+
+    exports.SortBy = void 0;
+    (function (SortBy) {
+        SortBy["RECENT"] = "recent";
+        SortBy["OLDEST"] = "oldest";
+    })(exports.SortBy || (exports.SortBy = {}));
+
+    var TimeUnit;
+    (function (TimeUnit) {
+        TimeUnit["SECONDLY"] = "s";
+        TimeUnit["MINUTELY"] = "m";
+        TimeUnit["HOURLY"] = "h";
+        TimeUnit["DAILY"] = "d";
+        TimeUnit["WEEKLY"] = "w";
+        TimeUnit["MONTHLY"] = "m";
+        TimeUnit["YEARLY"] = "y";
+    })(TimeUnit || (TimeUnit = {}));
+
+    function isEmail(email) {
+        var re = /^(([^<>()[\]\.,;:\s@\"]+(\.[^<>()[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i;
+        return re.test(email);
+    }
+    function isUri(uriStr) {
+        try {
+            return Boolean(new URL(uriStr));
+        }
+        catch (_a) {
+            return false;
+        }
+    }
+    function isDate(dateStr) {
+        return !isNaN(new Date(dateStr).getDate());
+    }
+
+    function inferDataSourceFieldType(data) {
+        // in the order of uniqueness -> Email, Link, DateTime, (Currency, Percent, Number), Text
+        if (isEmail(data))
+            return exports.DataSourceFieldType.Email;
+        if (isUri(data))
+            return exports.DataSourceFieldType.Link;
+        if (isDate(data))
+            return exports.DataSourceFieldType.DateTime;
+        // currency and percent are not inferrable
+        if (!isNaN(Number(data)))
+            return exports.DataSourceFieldType.Number;
+        // todo(minjae): Add a address / lat lng detector
+        return exports.DataSourceFieldType.Text;
+    }
+    function formattedField(data, displayType) {
+        switch (displayType) {
+            case exports.DataSourceFieldType.Number:
+                return Number(data).toString();
+            case exports.DataSourceFieldType.Percent:
+                return Number(data).toLocaleString(undefined, { style: "percent", minimumFractionDigits: 2 });
+            case exports.DataSourceFieldType.DateTime:
+                var newDate = new Date(data);
+                return newDate.toLocaleDateString();
+            case exports.DataSourceFieldType.Currency:
+                var currencyFractionDigits = new Intl.NumberFormat(undefined, {
+                    style: "currency",
+                    currency: "USD", // todo: somehow make this smarter
+                }).resolvedOptions().maximumFractionDigits;
+                var currencyString = Number(data).toLocaleString(undefined, {
+                    maximumFractionDigits: currencyFractionDigits
+                });
+                return currencyString;
+            case exports.DataSourceFieldType.Link:
+            case exports.DataSourceFieldType.Email:
+            case exports.DataSourceFieldType.Text:
+            case exports.DataSourceFieldType.Address:
+            case exports.DataSourceFieldType.LatLng:
+            default:
+                return data;
+        }
+    }
+
+    exports.ViewComponentType = void 0;
+    (function (ViewComponentType) {
+        ViewComponentType["TableView"] = "table_view";
+    })(exports.ViewComponentType || (exports.ViewComponentType = {}));
+
     // legacy libraries made for legacy table view component
     var style_cache = static_styles;
     var template_cache = static_templates;
 
+    exports.CALENDAR_BOOK_ENDPOINT = CALENDAR_BOOK_ENDPOINT;
+    exports.CALENDAR_CONFIG_ENDPOINT = CALENDAR_CONFIG_ENDPOINT;
+    exports.CALENDAR_MY_RESERVATIONS_ENDPOINT = CALENDAR_MY_RESERVATIONS_ENDPOINT;
+    exports.DEFAULT_DESCRIPTION_LENGTH_CUTOFF = DEFAULT_DESCRIPTION_LENGTH_CUTOFF;
+    exports.DEFAULT_HOST = DEFAULT_HOST;
+    exports.DEFAULT_TIME_FORMAT = DEFAULT_TIME_FORMAT;
+    exports.HOUR_ONLY = HOUR_ONLY;
+    exports.addDays = addDays;
+    exports.compareEventsByStartTime = compareEventsByStartTime;
+    exports.formatReservationTimeFrame = formatReservationTimeFrame;
+    exports.formattedField = formattedField;
+    exports.getDateInLocalTime = getDateInLocalTime;
+    exports.getEventTime = getEventTime;
+    exports.inferDataSourceFieldType = inferDataSourceFieldType;
+    exports.isDate = isDate;
+    exports.isEmail = isEmail;
+    exports.isUri = isUri;
+    exports.minutesSinceMidnight = minutesSinceMidnight;
+    exports.static_styles = static_styles;
+    exports.static_templates = static_templates;
     exports.style_cache = style_cache;
     exports.template_cache = template_cache;
 

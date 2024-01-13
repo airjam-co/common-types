@@ -1276,11 +1276,6 @@ var CodingLanguages;
     CodingLanguages["ReactNative"] = "react_native";
 })(CodingLanguages || (CodingLanguages = {}));
 
-var DataSourceType;
-(function (DataSourceType) {
-    DataSourceType["SINGLE"] = "SINGLE";
-    DataSourceType["JOIN"] = "JOIN";
-})(DataSourceType || (DataSourceType = {}));
 var DataSourceFieldType;
 (function (DataSourceFieldType) {
     DataSourceFieldType["Text"] = "text";
@@ -1295,17 +1290,12 @@ var DataSourceFieldType;
     DataSourceFieldType["Boolean"] = "boolean";
 })(DataSourceFieldType || (DataSourceFieldType = {}));
 
-//     Board = "view_board", not used, for now.
-var ViewType;
-(function (ViewType) {
-    ViewType["Spotlight"] = "view_spotlight";
-    ViewType["List"] = "view_list";
-    ViewType["Gallery"] = "view_gallery";
-    ViewType["Graph"] = "view_graph";
-    ViewType["Table"] = "view_table";
-    ViewType["Map"] = "view_map";
-    ViewType["Nearby"] = "view_nearby";
-})(ViewType || (ViewType = {}));
+var DataSourceType;
+(function (DataSourceType) {
+    DataSourceType["SINGLE"] = "SINGLE";
+    DataSourceType["JOIN"] = "JOIN";
+})(DataSourceType || (DataSourceType = {}));
+
 var PageTypes;
 (function (PageTypes) {
     PageTypes["LANDING"] = "LANDING";
@@ -1318,12 +1308,24 @@ var PageTypes;
     PageTypes["SCRIPT"] = "SCRIPT";
 })(PageTypes || (PageTypes = {}));
 
+//     Board = "view_board", not used, for now.
+var TableViewViewType;
+(function (TableViewViewType) {
+    TableViewViewType["Spotlight"] = "view_spotlight";
+    TableViewViewType["List"] = "view_list";
+    TableViewViewType["Gallery"] = "view_gallery";
+    TableViewViewType["Graph"] = "view_graph";
+    TableViewViewType["Table"] = "view_table";
+    TableViewViewType["Map"] = "view_map";
+    TableViewViewType["Nearby"] = "view_nearby";
+})(TableViewViewType || (TableViewViewType = {}));
+
 var static_templates = {
     "card_list": {
         _id: "",
         shortId: "card_list",
         compatibleWith: ["table_view"],
-        compatibleDisplayType: [ViewType.List, ViewType.Gallery],
+        compatibleDisplayType: [TableViewViewType.List, TableViewViewType.Gallery],
         compatibleLanguages: [CodingLanguages.Javascript, CodingLanguages.Typescript, CodingLanguages.React],
         name: "Card List",
         ownerId: "",
@@ -1368,7 +1370,7 @@ var static_templates = {
         _id: "",
         shortId: "standard_table",
         compatibleWith: ["table_view"],
-        compatibleDisplayType: [ViewType.Table],
+        compatibleDisplayType: [TableViewViewType.Table],
         compatibleLanguages: [CodingLanguages.Javascript, CodingLanguages.Typescript, CodingLanguages.React],
         name: "Table",
         ownerId: "",
@@ -1394,7 +1396,7 @@ var static_templates = {
         _id: "",
         shortId: "barchart",
         compatibleWith: ["table_view"],
-        compatibleDisplayType: [ViewType.Graph],
+        compatibleDisplayType: [TableViewViewType.Graph],
         compatibleLanguages: [CodingLanguages.Javascript, CodingLanguages.Typescript, CodingLanguages.React],
         name: "Bar Chart",
         ownerId: "",
@@ -1446,7 +1448,7 @@ var static_templates = {
         _id: "",
         shortId: "piechart",
         compatibleWith: ["table_view"],
-        compatibleDisplayType: [ViewType.Graph],
+        compatibleDisplayType: [TableViewViewType.Graph],
         compatibleLanguages: [CodingLanguages.Javascript, CodingLanguages.Typescript, CodingLanguages.React],
         name: "Pie Chart",
         ownerId: "",
@@ -1480,7 +1482,7 @@ var static_templates = {
         _id: "",
         shortId: "doughnutchart",
         compatibleWith: ["table_view"],
-        compatibleDisplayType: [ViewType.Graph],
+        compatibleDisplayType: [TableViewViewType.Graph],
         compatibleLanguages: [CodingLanguages.Javascript, CodingLanguages.Typescript, CodingLanguages.React],
         name: "Doughnut Chart",
         ownerId: "",
@@ -1514,7 +1516,7 @@ var static_templates = {
         _id: "",
         shortId: "linechart",
         compatibleWith: ["table_view"],
-        compatibleDisplayType: [ViewType.Graph],
+        compatibleDisplayType: [TableViewViewType.Graph],
         compatibleLanguages: [CodingLanguages.Javascript, CodingLanguages.Typescript, CodingLanguages.React],
         name: "Line Chart",
         ownerId: "",
@@ -1560,7 +1562,7 @@ var static_templates = {
         _id: "",
         shortId: "formal_menu",
         compatibleWith: ["table_view"],
-        compatibleDisplayType: [ViewType.List],
+        compatibleDisplayType: [TableViewViewType.List],
         compatibleLanguages: [CodingLanguages.Javascript, CodingLanguages.Typescript, CodingLanguages.React],
         name: "Formal Menu",
         ownerId: "",
@@ -1595,7 +1597,7 @@ var static_templates = {
         _id: "",
         shortId: "graphic_menu",
         compatibleWith: ["table_view"],
-        compatibleDisplayType: [ViewType.Gallery],
+        compatibleDisplayType: [TableViewViewType.Gallery],
         compatibleLanguages: [CodingLanguages.Javascript, CodingLanguages.Typescript, CodingLanguages.React],
         name: "Graphic Menu",
         ownerId: "",
@@ -1635,7 +1637,7 @@ var static_templates = {
         _id: "",
         shortId: "web_spotlight",
         compatibleWith: ["table_view"],
-        compatibleDisplayType: [ViewType.Spotlight],
+        compatibleDisplayType: [TableViewViewType.Spotlight],
         compatibleLanguages: [CodingLanguages.Javascript, CodingLanguages.Typescript, CodingLanguages.React],
         name: "Web Spotlight",
         ownerId: "",
@@ -1707,7 +1709,7 @@ var static_templates = {
         _id: "",
         shortId: "kiosk_guide_spotlight",
         compatibleWith: ["table_view"],
-        compatibleDisplayType: [ViewType.Spotlight],
+        compatibleDisplayType: [TableViewViewType.Spotlight],
         compatibleLanguages: [CodingLanguages.Javascript, CodingLanguages.Typescript, CodingLanguages.React],
         name: "Kiosk Guide Spotlight",
         ownerId: "",
@@ -1779,7 +1781,7 @@ var static_templates = {
         _id: "",
         shortId: "featured_signage",
         compatibleWith: ["table_view"],
-        compatibleDisplayType: [ViewType.Gallery],
+        compatibleDisplayType: [TableViewViewType.Gallery],
         compatibleLanguages: [CodingLanguages.Javascript, CodingLanguages.Typescript, CodingLanguages.React],
         name: "Signage - Featured",
         ownerId: "",
@@ -1883,7 +1885,7 @@ var static_templates = {
         _id: "",
         shortId: "detailed_signage",
         compatibleWith: ["table_view"],
-        compatibleDisplayType: [ViewType.Gallery],
+        compatibleDisplayType: [TableViewViewType.Gallery],
         compatibleLanguages: [CodingLanguages.Javascript, CodingLanguages.Typescript, CodingLanguages.React],
         name: "Signage - Detailed",
         ownerId: "",
@@ -2013,7 +2015,7 @@ var static_templates = {
         _id: "",
         shortId: "qr_menu",
         compatibleWith: ["table_view"],
-        compatibleDisplayType: [ViewType.Gallery],
+        compatibleDisplayType: [TableViewViewType.Gallery],
         compatibleLanguages: [CodingLanguages.Javascript, CodingLanguages.Typescript, CodingLanguages.React],
         name: "Mobile Menu",
         ownerId: "",
@@ -2107,7 +2109,7 @@ var static_templates = {
         _id: "",
         shortId: "job_postings",
         compatibleWith: ["table_view"],
-        compatibleDisplayType: [ViewType.List],
+        compatibleDisplayType: [TableViewViewType.List],
         compatibleLanguages: [CodingLanguages.Javascript, CodingLanguages.Typescript, CodingLanguages.React],
         name: "Job Postings",
         ownerId: "",
@@ -2142,7 +2144,7 @@ var static_templates = {
         _id: "",
         shortId: "faq",
         compatibleWith: ["table_view"],
-        compatibleDisplayType: [ViewType.List],
+        compatibleDisplayType: [TableViewViewType.List],
         compatibleLanguages: [CodingLanguages.Javascript, CodingLanguages.Typescript, CodingLanguages.React],
         name: "FAQs",
         ownerId: "",
@@ -2172,7 +2174,7 @@ var static_templates = {
         _id: "",
         shortId: "store_locator",
         compatibleWith: ["table_view"],
-        compatibleDisplayType: [ViewType.Map],
+        compatibleDisplayType: [TableViewViewType.Map],
         compatibleLanguages: [CodingLanguages.Javascript, CodingLanguages.Typescript],
         name: "Store Locator",
         ownerId: "",
@@ -2240,7 +2242,7 @@ var static_templates = {
         _id: "",
         shortId: "self_tour",
         compatibleWith: ["table_view"],
-        compatibleDisplayType: [ViewType.Nearby],
+        compatibleDisplayType: [TableViewViewType.Nearby],
         compatibleLanguages: [CodingLanguages.ReactNative],
         name: "Self-Guided tours",
         ownerId: "",
@@ -2311,9 +2313,253 @@ var static_templates = {
     },
 };
 
+var CALENDAR_CONFIG_ENDPOINT = '/s/calendar?id=';
+var CALENDAR_BOOK_ENDPOINT = '/s/calendar/book?id=';
+var CALENDAR_MY_RESERVATIONS_ENDPOINT = '/s/calendar/reservations?id=';
+var DEFAULT_DESCRIPTION_LENGTH_CUTOFF = 30;
+// TODO deprecate this, not very i18n friendly
+var DEFAULT_TIME_FORMAT = {
+    hour: '2-digit',
+    minute: '2-digit',
+    hour12: true,
+};
+var HOUR_ONLY = {
+    hour: 'numeric',
+};
+
+var addDays = function (date, days) {
+    var newDate = new Date(date);
+    newDate.setDate(date.getDate() + days);
+    return newDate;
+};
+var compareEventsByStartTime = function (a, b) {
+    if (a.startTimeUtc < b.startTimeUtc) {
+        return -1;
+    }
+    if (a.startTimeUtc > b.startTimeUtc) {
+        return 1;
+    }
+    return 0;
+};
+var minutesSinceMidnight = function (dateObj) {
+    if (!dateObj) {
+        return 0;
+    }
+    var date = new Date(dateObj);
+    var minutes = date.getMinutes();
+    var hours = date.getHours();
+    return 60 * hours + minutes;
+};
+var getEventTime = function (event) {
+    var start = new Date(event.startTimeUtc);
+    var end = new Date(event.endTimeUtc);
+    var isAllDay = event.isAllDay;
+    if (isAllDay) {
+        return 'All Day';
+    }
+    if (end && end > new Date(0)) {
+        return (start.toLocaleTimeString([], DEFAULT_TIME_FORMAT) +
+            ' ~ ' +
+            end.toLocaleTimeString([], DEFAULT_TIME_FORMAT));
+    }
+    return start.toLocaleTimeString([], DEFAULT_TIME_FORMAT);
+};
+var formatReservationTimeFrame = function (reservation) {
+    var start = new Date(reservation.startTimeUtc);
+    var end = new Date(reservation.endTimeUtc);
+    if (end && end > new Date(0)) {
+        return (start.toLocaleTimeString([], DEFAULT_TIME_FORMAT) +
+            ' ~ ' +
+            end.toLocaleTimeString([], DEFAULT_TIME_FORMAT));
+    }
+    return start.toLocaleTimeString([], DEFAULT_TIME_FORMAT);
+};
+var getDateInLocalTime = function (dateObj) {
+    return new Date(dateObj.toString().split('GMT')[0] + ' UTC')
+        .toISOString()
+        .split('T')[0];
+};
+
+var CalendarBookingUnit;
+(function (CalendarBookingUnit) {
+    CalendarBookingUnit["Fixed"] = "fixed";
+    CalendarBookingUnit["Flexible"] = "flexible";
+})(CalendarBookingUnit || (CalendarBookingUnit = {}));
+
+var CalendarBookOn;
+(function (CalendarBookOn) {
+    CalendarBookOn["EXISTING_EVENTS"] = "book_on_events";
+    CalendarBookOn["EXISTING_EVENTS_EXCLUSIVELY"] = "book_exclusively_on_events";
+    CalendarBookOn["FREE_SLOTS"] = "book_on_free_slots";
+})(CalendarBookOn || (CalendarBookOn = {}));
+
+var CalendarDataProvider;
+(function (CalendarDataProvider) {
+    CalendarDataProvider["Google"] = "google";
+    CalendarDataProvider["None"] = "none";
+})(CalendarDataProvider || (CalendarDataProvider = {}));
+
+var CalendarEventReservableUntilType;
+(function (CalendarEventReservableUntilType) {
+    CalendarEventReservableUntilType["Indefinite"] = "indefinite";
+    CalendarEventReservableUntilType["FixedTime"] = "fixed_time";
+    CalendarEventReservableUntilType["Duration"] = "duration";
+})(CalendarEventReservableUntilType || (CalendarEventReservableUntilType = {}));
+
+var CalendarReservationPriceUnit;
+(function (CalendarReservationPriceUnit) {
+    CalendarReservationPriceUnit["WholeEvent"] = "whole_event";
+    CalendarReservationPriceUnit["PerIncrement"] = "increment";
+})(CalendarReservationPriceUnit || (CalendarReservationPriceUnit = {}));
+
+var CalendarResourceOperatingHoursGrouping;
+(function (CalendarResourceOperatingHoursGrouping) {
+    CalendarResourceOperatingHoursGrouping["SameHoursDaily"] = "same_hours_daily";
+    CalendarResourceOperatingHoursGrouping["VariesDayByDay"] = "varies_day_by_day";
+})(CalendarResourceOperatingHoursGrouping || (CalendarResourceOperatingHoursGrouping = {}));
+
+var CalendarResourceOperatingHoursType;
+(function (CalendarResourceOperatingHoursType) {
+    CalendarResourceOperatingHoursType["NoOperatingHours"] = "no_operating_hours";
+    CalendarResourceOperatingHoursType["HasOperatingHours"] = "has_operating_hours";
+})(CalendarResourceOperatingHoursType || (CalendarResourceOperatingHoursType = {}));
+
+var EventReservationStatus;
+(function (EventReservationStatus) {
+    EventReservationStatus["Reserved"] = "reserved";
+    EventReservationStatus["Canceled"] = "canceled";
+    EventReservationStatus["Requested"] = "reservation_requested";
+})(EventReservationStatus || (EventReservationStatus = {}));
+
+var GetEventsDuration;
+(function (GetEventsDuration) {
+    GetEventsDuration["ExactDay"] = "EXACT_DAY";
+    GetEventsDuration["WholeMonth"] = "WHOLE_MONTH";
+})(GetEventsDuration || (GetEventsDuration = {}));
+
+var ReservationModeration;
+(function (ReservationModeration) {
+    ReservationModeration["OPEN"] = "open";
+    ReservationModeration["SUPER_ADMIN_MODERATED"] = "moderated";
+})(ReservationModeration || (ReservationModeration = {}));
+
+var CalendarViewType;
+(function (CalendarViewType) {
+    CalendarViewType["CalendarView"] = "CALENDAR_VIEW";
+    CalendarViewType["CalendarBook"] = "CALENDAR_BOOK";
+    CalendarViewType["CalendarExclusiveBook"] = "CALENDAR_EXCLUSIVE_BOOK";
+    CalendarViewType["DayView"] = "DAY_VIEW";
+    CalendarViewType["DayViewByLocation"] = "DAY_VIEW_BY_LOCATION";
+    CalendarViewType["DayList"] = "DAY_LIST";
+    CalendarViewType["List"] = "LIST";
+    CalendarViewType["MyEventsList"] = "MY_EVENT_LIST";
+})(CalendarViewType || (CalendarViewType = {}));
+
+var QueryOperator;
+(function (QueryOperator) {
+    QueryOperator["AND"] = "and";
+    QueryOperator["OR"] = "or";
+    QueryOperator["NOT"] = "not";
+})(QueryOperator || (QueryOperator = {}));
+
+var QueryType;
+(function (QueryType) {
+    QueryType["EXACT"] = "exact";
+    QueryType["KEYWORD"] = "keyword";
+})(QueryType || (QueryType = {}));
+
+var DEFAULT_HOST = 'https://airjam.co';
+
+var PaginationStyle;
+(function (PaginationStyle) {
+    PaginationStyle["Paged"] = "pagination_paged";
+    PaginationStyle["InfiniteScroll"] = "pagination_infinite";
+    PaginationStyle["NoPagination"] = "pagination_none";
+})(PaginationStyle || (PaginationStyle = {}));
+
+var SortBy;
+(function (SortBy) {
+    SortBy["RECENT"] = "recent";
+    SortBy["OLDEST"] = "oldest";
+})(SortBy || (SortBy = {}));
+
+var TimeUnit;
+(function (TimeUnit) {
+    TimeUnit["SECONDLY"] = "s";
+    TimeUnit["MINUTELY"] = "m";
+    TimeUnit["HOURLY"] = "h";
+    TimeUnit["DAILY"] = "d";
+    TimeUnit["WEEKLY"] = "w";
+    TimeUnit["MONTHLY"] = "m";
+    TimeUnit["YEARLY"] = "y";
+})(TimeUnit || (TimeUnit = {}));
+
+function isEmail(email) {
+    var re = /^(([^<>()[\]\.,;:\s@\"]+(\.[^<>()[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i;
+    return re.test(email);
+}
+function isUri(uriStr) {
+    try {
+        return Boolean(new URL(uriStr));
+    }
+    catch (_a) {
+        return false;
+    }
+}
+function isDate(dateStr) {
+    return !isNaN(new Date(dateStr).getDate());
+}
+
+function inferDataSourceFieldType(data) {
+    // in the order of uniqueness -> Email, Link, DateTime, (Currency, Percent, Number), Text
+    if (isEmail(data))
+        return DataSourceFieldType.Email;
+    if (isUri(data))
+        return DataSourceFieldType.Link;
+    if (isDate(data))
+        return DataSourceFieldType.DateTime;
+    // currency and percent are not inferrable
+    if (!isNaN(Number(data)))
+        return DataSourceFieldType.Number;
+    // todo(minjae): Add a address / lat lng detector
+    return DataSourceFieldType.Text;
+}
+function formattedField(data, displayType) {
+    switch (displayType) {
+        case DataSourceFieldType.Number:
+            return Number(data).toString();
+        case DataSourceFieldType.Percent:
+            return Number(data).toLocaleString(undefined, { style: "percent", minimumFractionDigits: 2 });
+        case DataSourceFieldType.DateTime:
+            var newDate = new Date(data);
+            return newDate.toLocaleDateString();
+        case DataSourceFieldType.Currency:
+            var currencyFractionDigits = new Intl.NumberFormat(undefined, {
+                style: "currency",
+                currency: "USD", // todo: somehow make this smarter
+            }).resolvedOptions().maximumFractionDigits;
+            var currencyString = Number(data).toLocaleString(undefined, {
+                maximumFractionDigits: currencyFractionDigits
+            });
+            return currencyString;
+        case DataSourceFieldType.Link:
+        case DataSourceFieldType.Email:
+        case DataSourceFieldType.Text:
+        case DataSourceFieldType.Address:
+        case DataSourceFieldType.LatLng:
+        default:
+            return data;
+    }
+}
+
+var ViewComponentType;
+(function (ViewComponentType) {
+    ViewComponentType["TableView"] = "table_view";
+})(ViewComponentType || (ViewComponentType = {}));
+
 // legacy libraries made for legacy table view component
 var style_cache = static_styles;
 var template_cache = static_templates;
 
-export { style_cache, template_cache };
+export { CALENDAR_BOOK_ENDPOINT, CALENDAR_CONFIG_ENDPOINT, CALENDAR_MY_RESERVATIONS_ENDPOINT, CalendarBookOn, CalendarBookingUnit, CalendarDataProvider, CalendarEventReservableUntilType, CalendarReservationPriceUnit, CalendarViewType, DEFAULT_DESCRIPTION_LENGTH_CUTOFF, DEFAULT_HOST, DEFAULT_TIME_FORMAT, DataSourceFieldType, DataSourceType, EventReservationStatus, GetEventsDuration, HOUR_ONLY, PageTypes, PaginationStyle, QueryOperator, QueryType, ReservationModeration, SortBy, TableViewViewType, ViewComponentType, addDays, compareEventsByStartTime, formatReservationTimeFrame, formattedField, getDateInLocalTime, getEventTime, inferDataSourceFieldType, isDate, isEmail, isUri, minutesSinceMidnight, static_styles, static_templates, style_cache, template_cache };
 //# sourceMappingURL=library.es.js.map

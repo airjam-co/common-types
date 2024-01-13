@@ -3,8 +3,3 @@ export enum PaginationStyle {
     InfiniteScroll = "pagination_infinite",
     NoPagination = "pagination_none"
 }
-
-export enum SortBy {
-    RECENT = "recent",
-    OLDEST = "oldest"
-}

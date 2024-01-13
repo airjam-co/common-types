@@ -1,4 +1,4 @@
-import { TemplateStyle } from "../view/template";
+import { TemplateStyle } from "../view/TemplateStyle";
 
 export const static_styles: {[id: string]: TemplateStyle} = {
     "muted": {
