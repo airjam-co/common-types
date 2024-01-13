@@ -7,6 +7,7 @@ export declare enum ViewComponentType {
     TableView = "table_view"
 }
 export declare enum ViewType {
+    Spotlight = "view_spotlight",
     List = "view_list",
     Gallery = "view_gallery",
     Graph = "view_graph",
@@ -34,7 +35,8 @@ export declare enum DataSourceFieldType {
     Link = "link",
     Email = "email",
     LatLng = "latlng",
-    Address = "address"
+    Address = "address",
+    Boolean = "boolean"
 }
 export declare enum SortBy {
     RECENT = "recent",
@@ -88,7 +90,13 @@ export declare enum PageTypes {
     DETAIL = "DETAIL",
     EDIT = "EDIT",
     CREATE = "CREATE",
-    MARKER = "MARKER"
+    ITEM = "ITEM",
+    MARKER = "MARKER",
+    SCRIPT = "SCRIPT"
+}
+export declare enum DataSourceType {
+    SINGLE = "SINGLE",
+    JOIN = "JOIN"
 }
 export interface ComponentTemplate extends UnifiedModel {
     shortId: string;
@@ -114,6 +122,7 @@ export interface ComponentTemplate extends UnifiedModel {
         [id: string]: any;
     };
     compatibleLanguages: CodingLanguages[];
+    dataSourceType: DataSourceType;
 }
 export interface TemplateStyle extends UnifiedModel {
     shortId: string;
@@ -159,6 +168,9 @@ export interface tableViewResponse {
         [id: string]: string;
     };
     templateProperties: {
+        [id: string]: any;
+    };
+    styleProperties: {
         [id: string]: any;
     };
 }
