@@ -11,6 +11,7 @@ export * from "./CalendarEventReservableUntilType";
 export * from "./CalendarReservationFrame";
 export * from "./CalendarReservationPriceUnit";
 export * from "./CalendarResource";
+export * from "./CalendarResourceMedia";
 export * from "./CalendarResourceOperatingHoursGrouping";
 export * from "./CalendarResourceOperatingHoursType";
 export * from "./EventReservation";

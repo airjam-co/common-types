@@ -1,5 +1,5 @@
-import ReservationModeration from "./ReservationModeration";
-import CalendarReservationPriceUnit from "./CalendarReservationPriceUnit";
+import { ReservationModeration } from "./ReservationModeration";
+import { CalendarReservationPriceUnit } from "./CalendarReservationPriceUnit";
 import { Point } from "../common/Point";
 import { CalendarResourceMedia } from "./CalendarResourceMedia";
 import { UnifiedModel } from "../common";

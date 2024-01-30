@@ -4,8 +4,8 @@ import { CalendarBookOn } from "./CalendarBookOn";
 import { CalendarBookingUnit } from "./CalendarBookingUnit";
 import { CalendarReservationFrame } from "./CalendarReservationFrame";
 import { CalendarReservationPriceUnit } from "./CalendarReservationPriceUnit";
-import CalendarResourceOperatingHoursGrouping from "./CalendarResourceOperatingHoursGrouping";
-import CalendarResourceOperatingHoursType from "./CalendarResourceOperatingHoursType";
+import { CalendarResourceOperatingHoursGrouping } from "./CalendarResourceOperatingHoursGrouping";
+import { CalendarResourceOperatingHoursType } from "./CalendarResourceOperatingHoursType";
 import { TimeRange } from "./TimeRange";
 
 export interface BookingResource extends UnifiedModel {

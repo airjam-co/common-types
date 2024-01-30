@@ -1347,7 +1347,7 @@
                 title: {
                     name: "Title",
                     description: "Title of the card item",
-                    compatibleTypes: [], //empty for all
+                    compatibleTypes: [],
                 },
                 link: {
                     name: "Link",
@@ -1584,7 +1584,7 @@
                 name: {
                     name: "Name",
                     description: "Item name",
-                    compatibleTypes: [], //empty for all
+                    compatibleTypes: [],
                 },
                 price: {
                     name: "Price",
@@ -1619,7 +1619,7 @@
                 name: {
                     name: "Name",
                     description: "Item name",
-                    compatibleTypes: [], //empty for all
+                    compatibleTypes: [],
                 },
                 price: {
                     name: "Price",
@@ -2131,7 +2131,7 @@
                 title: {
                     name: "Title",
                     description: "Title of the posting",
-                    compatibleTypes: [], //empty for all
+                    compatibleTypes: [],
                 },
                 link: {
                     name: "Call To Action Link",
@@ -2166,7 +2166,7 @@
                 question: {
                     name: "Question",
                     description: "Question",
-                    compatibleTypes: [], //empty for all
+                    compatibleTypes: [],
                 },
                 answer: {
                     name: "Answer",
@@ -2199,17 +2199,17 @@
                 label: {
                     name: "Label",
                     description: "Label of the place marker",
-                    compatibleTypes: [], //empty for all
+                    compatibleTypes: [],
                 },
                 location: {
                     name: "Location",
                     description: "Address or latitude / longitude of the place marker",
-                    compatibleTypes: [exports.DataSourceFieldType.Address, exports.DataSourceFieldType.LatLng], //empty for all
+                    compatibleTypes: [exports.DataSourceFieldType.Address, exports.DataSourceFieldType.LatLng],
                 },
                 description: {
                     name: "Description",
                     description: "(Optional) Description of the place marker",
-                    compatibleTypes: [], //empty for all
+                    compatibleTypes: [],
                 },
                 markerOverride: {
                     name: "Marker Image",
@@ -2323,6 +2323,7 @@
     var CALENDAR_BOOK_ENDPOINT = '/s/calendar/book?id=';
     var CALENDAR_MY_RESERVATIONS_ENDPOINT = '/s/calendar/reservations?id=';
     var DEFAULT_DESCRIPTION_LENGTH_CUTOFF = 30;
+    var CALENDAR_RESOURCE_SEARCH_ENDPOINT = "/s/calendar/find?id=";
     // TODO deprecate this, not very i18n friendly
     var DEFAULT_TIME_FORMAT = {
         hour: '2-digit',
@@ -2418,17 +2419,17 @@
         CalendarReservationPriceUnit["PerIncrement"] = "increment";
     })(exports.CalendarReservationPriceUnit || (exports.CalendarReservationPriceUnit = {}));
 
-    var CalendarResourceOperatingHoursGrouping;
+    exports.CalendarResourceOperatingHoursGrouping = void 0;
     (function (CalendarResourceOperatingHoursGrouping) {
         CalendarResourceOperatingHoursGrouping["SameHoursDaily"] = "same_hours_daily";
         CalendarResourceOperatingHoursGrouping["VariesDayByDay"] = "varies_day_by_day";
-    })(CalendarResourceOperatingHoursGrouping || (CalendarResourceOperatingHoursGrouping = {}));
+    })(exports.CalendarResourceOperatingHoursGrouping || (exports.CalendarResourceOperatingHoursGrouping = {}));
 
-    var CalendarResourceOperatingHoursType;
+    exports.CalendarResourceOperatingHoursType = void 0;
     (function (CalendarResourceOperatingHoursType) {
         CalendarResourceOperatingHoursType["NoOperatingHours"] = "no_operating_hours";
         CalendarResourceOperatingHoursType["HasOperatingHours"] = "has_operating_hours";
-    })(CalendarResourceOperatingHoursType || (CalendarResourceOperatingHoursType = {}));
+    })(exports.CalendarResourceOperatingHoursType || (exports.CalendarResourceOperatingHoursType = {}));
 
     exports.EventReservationStatus = void 0;
     (function (EventReservationStatus) {
@@ -2459,6 +2460,7 @@
         CalendarViewType["DayList"] = "DAY_LIST";
         CalendarViewType["List"] = "LIST";
         CalendarViewType["MyEventsList"] = "MY_EVENT_LIST";
+        CalendarViewType["MapResourceList"] = "MAP_RESOURCE_LIST";
     })(exports.CalendarViewType || (exports.CalendarViewType = {}));
 
     exports.QueryOperator = void 0;
@@ -2471,7 +2473,15 @@
     exports.QueryType = void 0;
     (function (QueryType) {
         QueryType["EXACT"] = "exact";
+        QueryType["NOT_EQUAL"] = "ne";
         QueryType["KEYWORD"] = "keyword";
+        QueryType["GREATER_THAN"] = "gt";
+        QueryType["GREATER_THAN_EQ"] = "gte";
+        QueryType["LESS_THAN"] = "lt";
+        QueryType["LESS_THAN_EQ"] = "lte";
+        QueryType["IN"] = "in";
+        QueryType["NOT_IN"] = "nin";
+        QueryType["ALL_IN"] = "ain";
     })(exports.QueryType || (exports.QueryType = {}));
 
     var DEFAULT_HOST = 'https://airjam.co';
@@ -2542,7 +2552,7 @@
             case exports.DataSourceFieldType.Currency:
                 var currencyFractionDigits = new Intl.NumberFormat(undefined, {
                     style: "currency",
-                    currency: "USD", // todo: somehow make this smarter
+                    currency: "USD",
                 }).resolvedOptions().maximumFractionDigits;
                 var currencyString = Number(data).toLocaleString(undefined, {
                     maximumFractionDigits: currencyFractionDigits
@@ -2570,6 +2580,7 @@
     exports.CALENDAR_BOOK_ENDPOINT = CALENDAR_BOOK_ENDPOINT;
     exports.CALENDAR_CONFIG_ENDPOINT = CALENDAR_CONFIG_ENDPOINT;
     exports.CALENDAR_MY_RESERVATIONS_ENDPOINT = CALENDAR_MY_RESERVATIONS_ENDPOINT;
+    exports.CALENDAR_RESOURCE_SEARCH_ENDPOINT = CALENDAR_RESOURCE_SEARCH_ENDPOINT;
     exports.DEFAULT_DESCRIPTION_LENGTH_CUTOFF = DEFAULT_DESCRIPTION_LENGTH_CUTOFF;
     exports.DEFAULT_HOST = DEFAULT_HOST;
     exports.DEFAULT_TIME_FORMAT = DEFAULT_TIME_FORMAT;

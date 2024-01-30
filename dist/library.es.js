@@ -1341,7 +1341,7 @@ var static_templates = {
             title: {
                 name: "Title",
                 description: "Title of the card item",
-                compatibleTypes: [], //empty for all
+                compatibleTypes: [],
             },
             link: {
                 name: "Link",
@@ -1578,7 +1578,7 @@ var static_templates = {
             name: {
                 name: "Name",
                 description: "Item name",
-                compatibleTypes: [], //empty for all
+                compatibleTypes: [],
             },
             price: {
                 name: "Price",
@@ -1613,7 +1613,7 @@ var static_templates = {
             name: {
                 name: "Name",
                 description: "Item name",
-                compatibleTypes: [], //empty for all
+                compatibleTypes: [],
             },
             price: {
                 name: "Price",
@@ -2125,7 +2125,7 @@ var static_templates = {
             title: {
                 name: "Title",
                 description: "Title of the posting",
-                compatibleTypes: [], //empty for all
+                compatibleTypes: [],
             },
             link: {
                 name: "Call To Action Link",
@@ -2160,7 +2160,7 @@ var static_templates = {
             question: {
                 name: "Question",
                 description: "Question",
-                compatibleTypes: [], //empty for all
+                compatibleTypes: [],
             },
             answer: {
                 name: "Answer",
@@ -2193,17 +2193,17 @@ var static_templates = {
             label: {
                 name: "Label",
                 description: "Label of the place marker",
-                compatibleTypes: [], //empty for all
+                compatibleTypes: [],
             },
             location: {
                 name: "Location",
                 description: "Address or latitude / longitude of the place marker",
-                compatibleTypes: [DataSourceFieldType.Address, DataSourceFieldType.LatLng], //empty for all
+                compatibleTypes: [DataSourceFieldType.Address, DataSourceFieldType.LatLng],
             },
             description: {
                 name: "Description",
                 description: "(Optional) Description of the place marker",
-                compatibleTypes: [], //empty for all
+                compatibleTypes: [],
             },
             markerOverride: {
                 name: "Marker Image",
@@ -2317,6 +2317,7 @@ var CALENDAR_CONFIG_ENDPOINT = '/s/calendar?id=';
 var CALENDAR_BOOK_ENDPOINT = '/s/calendar/book?id=';
 var CALENDAR_MY_RESERVATIONS_ENDPOINT = '/s/calendar/reservations?id=';
 var DEFAULT_DESCRIPTION_LENGTH_CUTOFF = 30;
+var CALENDAR_RESOURCE_SEARCH_ENDPOINT = "/s/calendar/find?id=";
 // TODO deprecate this, not very i18n friendly
 var DEFAULT_TIME_FORMAT = {
     hour: '2-digit',
@@ -2453,6 +2454,7 @@ var CalendarViewType;
     CalendarViewType["DayList"] = "DAY_LIST";
     CalendarViewType["List"] = "LIST";
     CalendarViewType["MyEventsList"] = "MY_EVENT_LIST";
+    CalendarViewType["MapResourceList"] = "MAP_RESOURCE_LIST";
 })(CalendarViewType || (CalendarViewType = {}));
 
 var QueryOperator;
@@ -2465,7 +2467,15 @@ var QueryOperator;
 var QueryType;
 (function (QueryType) {
     QueryType["EXACT"] = "exact";
+    QueryType["NOT_EQUAL"] = "ne";
     QueryType["KEYWORD"] = "keyword";
+    QueryType["GREATER_THAN"] = "gt";
+    QueryType["GREATER_THAN_EQ"] = "gte";
+    QueryType["LESS_THAN"] = "lt";
+    QueryType["LESS_THAN_EQ"] = "lte";
+    QueryType["IN"] = "in";
+    QueryType["NOT_IN"] = "nin";
+    QueryType["ALL_IN"] = "ain";
 })(QueryType || (QueryType = {}));
 
 var DEFAULT_HOST = 'https://airjam.co';
@@ -2536,7 +2546,7 @@ function formattedField(data, displayType) {
         case DataSourceFieldType.Currency:
             var currencyFractionDigits = new Intl.NumberFormat(undefined, {
                 style: "currency",
-                currency: "USD", // todo: somehow make this smarter
+                currency: "USD",
             }).resolvedOptions().maximumFractionDigits;
             var currencyString = Number(data).toLocaleString(undefined, {
                 maximumFractionDigits: currencyFractionDigits
@@ -2561,5 +2571,5 @@ var ViewComponentType;
 var style_cache = static_styles;
 var template_cache = static_templates;
 
-export { CALENDAR_BOOK_ENDPOINT, CALENDAR_CONFIG_ENDPOINT, CALENDAR_MY_RESERVATIONS_ENDPOINT, CalendarBookOn, CalendarBookingUnit, CalendarDataProvider, CalendarEventReservableUntilType, CalendarReservationPriceUnit, CalendarViewType, DEFAULT_DESCRIPTION_LENGTH_CUTOFF, DEFAULT_HOST, DEFAULT_TIME_FORMAT, DataSourceFieldType, DataSourceType, EventReservationStatus, GetEventsDuration, HOUR_ONLY, PageTypes, PaginationStyle, QueryOperator, QueryType, ReservationModeration, SortBy, TableViewViewType, ViewComponentType, addDays, compareEventsByStartTime, formatReservationTimeFrame, formattedField, getDateInLocalTime, getEventTime, inferDataSourceFieldType, isDate, isEmail, isUri, minutesSinceMidnight, static_styles, static_templates, style_cache, template_cache };
+export { CALENDAR_BOOK_ENDPOINT, CALENDAR_CONFIG_ENDPOINT, CALENDAR_MY_RESERVATIONS_ENDPOINT, CALENDAR_RESOURCE_SEARCH_ENDPOINT, CalendarBookOn, CalendarBookingUnit, CalendarDataProvider, CalendarEventReservableUntilType, CalendarReservationPriceUnit, CalendarResourceOperatingHoursGrouping, CalendarResourceOperatingHoursType, CalendarViewType, DEFAULT_DESCRIPTION_LENGTH_CUTOFF, DEFAULT_HOST, DEFAULT_TIME_FORMAT, DataSourceFieldType, DataSourceType, EventReservationStatus, GetEventsDuration, HOUR_ONLY, PageTypes, PaginationStyle, QueryOperator, QueryType, ReservationModeration, SortBy, TableViewViewType, ViewComponentType, addDays, compareEventsByStartTime, formatReservationTimeFrame, formattedField, getDateInLocalTime, getEventTime, inferDataSourceFieldType, isDate, isEmail, isUri, minutesSinceMidnight, static_styles, static_templates, style_cache, template_cache };
 //# sourceMappingURL=library.es.js.map
