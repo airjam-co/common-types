@@ -1,3 +1,4 @@
+export * from './AirJamFilter';
 export * from './AirJamQuery';
 export * from './QueryOperator';
 export * from './QueryParam';
