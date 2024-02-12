@@ -2322,8 +2322,10 @@
     var CALENDAR_CONFIG_ENDPOINT = '/s/calendar?id=';
     var CALENDAR_BOOK_ENDPOINT = '/s/calendar/book?id=';
     var CALENDAR_MY_RESERVATIONS_ENDPOINT = '/s/calendar/reservations?id=';
-    var DEFAULT_DESCRIPTION_LENGTH_CUTOFF = 30;
     var CALENDAR_RESOURCE_SEARCH_ENDPOINT = "/s/calendar/find?id=";
+    var CALENDAR_RESOURCE_MY_RESOURCE_ENDPOINT = "/s/calendar/resource/";
+    var CALENDAR_RESOURCE_MY_RESOURCES_ENDPOINT = "/s/calendar/resources/";
+    var DEFAULT_DESCRIPTION_LENGTH_CUTOFF = 30;
     // TODO deprecate this, not very i18n friendly
     var DEFAULT_TIME_FORMAT = {
         hour: '2-digit',
@@ -2403,6 +2405,7 @@
     exports.CalendarDataProvider = void 0;
     (function (CalendarDataProvider) {
         CalendarDataProvider["Google"] = "google";
+        CalendarDataProvider["CalDAV"] = "cal_dav";
         CalendarDataProvider["None"] = "none";
     })(exports.CalendarDataProvider || (exports.CalendarDataProvider = {}));
 
@@ -2431,6 +2434,19 @@
         CalendarResourceOperatingHoursType["HasOperatingHours"] = "has_operating_hours";
     })(exports.CalendarResourceOperatingHoursType || (exports.CalendarResourceOperatingHoursType = {}));
 
+    exports.CalendarViewType = void 0;
+    (function (CalendarViewType) {
+        CalendarViewType["CalendarView"] = "CALENDAR_VIEW";
+        CalendarViewType["CalendarBook"] = "CALENDAR_BOOK";
+        CalendarViewType["CalendarExclusiveBook"] = "CALENDAR_EXCLUSIVE_BOOK";
+        CalendarViewType["DayView"] = "DAY_VIEW";
+        CalendarViewType["DayViewByLocation"] = "DAY_VIEW_BY_LOCATION";
+        CalendarViewType["DayList"] = "DAY_LIST";
+        CalendarViewType["List"] = "LIST";
+        CalendarViewType["MyEventsList"] = "MY_EVENT_LIST";
+        CalendarViewType["MapResourceList"] = "MAP_RESOURCE_LIST";
+    })(exports.CalendarViewType || (exports.CalendarViewType = {}));
+
     exports.EventReservationStatus = void 0;
     (function (EventReservationStatus) {
         EventReservationStatus["Reserved"] = "reserved";
@@ -2444,24 +2460,44 @@
         GetEventsDuration["WholeMonth"] = "WHOLE_MONTH";
     })(exports.GetEventsDuration || (exports.GetEventsDuration = {}));
 
+    var toPublicResource = function (resource) {
+        return {
+            _id: resource._id,
+            createdAt: resource.createdAt,
+            updatedAt: resource.updatedAt,
+            calendarComponentId: resource.calendarComponentId,
+            shortId: resource.shortId,
+            name: resource.name,
+            media: resource.media,
+            description: resource.description,
+            timezone: resource.timezone,
+            quantityAvailable: resource.quantityAvailable,
+            moderation: resource.moderation,
+            ownerId: resource.ownerId,
+            ownerName: resource.ownerName,
+            ownerEmail: resource.ownerEmail,
+            staticPrice: resource.staticPrice,
+            staticPriceUnit: resource.staticPriceUnit,
+            staticPriceCurrency: resource.staticPriceCurrency,
+            approximateLocation: reducePointPrecision(resource.staticLocation),
+        };
+    };
+    var reducePointPrecision = function (point, precision) {
+        if (precision === void 0) { precision = 5; }
+        if (!point || !point.coordinates || !point.coordinates.length)
+            return undefined;
+        var coords = point.coordinates.map(function (v) { return parseFloat(v.toFixed(precision)); });
+        return {
+            type: point.type,
+            coordinates: coords,
+        };
+    };
+
     exports.ReservationModeration = void 0;
     (function (ReservationModeration) {
         ReservationModeration["OPEN"] = "open";
         ReservationModeration["SUPER_ADMIN_MODERATED"] = "moderated";
     })(exports.ReservationModeration || (exports.ReservationModeration = {}));
-
-    exports.CalendarViewType = void 0;
-    (function (CalendarViewType) {
-        CalendarViewType["CalendarView"] = "CALENDAR_VIEW";
-        CalendarViewType["CalendarBook"] = "CALENDAR_BOOK";
-        CalendarViewType["CalendarExclusiveBook"] = "CALENDAR_EXCLUSIVE_BOOK";
-        CalendarViewType["DayView"] = "DAY_VIEW";
-        CalendarViewType["DayViewByLocation"] = "DAY_VIEW_BY_LOCATION";
-        CalendarViewType["DayList"] = "DAY_LIST";
-        CalendarViewType["List"] = "LIST";
-        CalendarViewType["MyEventsList"] = "MY_EVENT_LIST";
-        CalendarViewType["MapResourceList"] = "MAP_RESOURCE_LIST";
-    })(exports.CalendarViewType || (exports.CalendarViewType = {}));
 
     exports.QueryOperator = void 0;
     (function (QueryOperator) {
@@ -2499,7 +2535,7 @@
         SortBy["OLDEST"] = "oldest";
     })(exports.SortBy || (exports.SortBy = {}));
 
-    var TimeUnit;
+    exports.TimeUnit = void 0;
     (function (TimeUnit) {
         TimeUnit["SECONDLY"] = "s";
         TimeUnit["MINUTELY"] = "m";
@@ -2508,7 +2544,7 @@
         TimeUnit["WEEKLY"] = "w";
         TimeUnit["MONTHLY"] = "m";
         TimeUnit["YEARLY"] = "y";
-    })(TimeUnit || (TimeUnit = {}));
+    })(exports.TimeUnit || (exports.TimeUnit = {}));
 
     function isEmail(email) {
         var re = /^(([^<>()[\]\.,;:\s@\"]+(\.[^<>()[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i;
@@ -2580,6 +2616,8 @@
     exports.CALENDAR_BOOK_ENDPOINT = CALENDAR_BOOK_ENDPOINT;
     exports.CALENDAR_CONFIG_ENDPOINT = CALENDAR_CONFIG_ENDPOINT;
     exports.CALENDAR_MY_RESERVATIONS_ENDPOINT = CALENDAR_MY_RESERVATIONS_ENDPOINT;
+    exports.CALENDAR_RESOURCE_MY_RESOURCES_ENDPOINT = CALENDAR_RESOURCE_MY_RESOURCES_ENDPOINT;
+    exports.CALENDAR_RESOURCE_MY_RESOURCE_ENDPOINT = CALENDAR_RESOURCE_MY_RESOURCE_ENDPOINT;
     exports.CALENDAR_RESOURCE_SEARCH_ENDPOINT = CALENDAR_RESOURCE_SEARCH_ENDPOINT;
     exports.DEFAULT_DESCRIPTION_LENGTH_CUTOFF = DEFAULT_DESCRIPTION_LENGTH_CUTOFF;
     exports.DEFAULT_HOST = DEFAULT_HOST;
@@ -2596,10 +2634,12 @@
     exports.isEmail = isEmail;
     exports.isUri = isUri;
     exports.minutesSinceMidnight = minutesSinceMidnight;
+    exports.reducePointPrecision = reducePointPrecision;
     exports.static_styles = static_styles;
     exports.static_templates = static_templates;
     exports.style_cache = style_cache;
     exports.template_cache = template_cache;
+    exports.toPublicResource = toPublicResource;
 
     Object.defineProperty(exports, '__esModule', { value: true });
 

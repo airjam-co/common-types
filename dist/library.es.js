@@ -2316,8 +2316,10 @@ var static_templates = {
 var CALENDAR_CONFIG_ENDPOINT = '/s/calendar?id=';
 var CALENDAR_BOOK_ENDPOINT = '/s/calendar/book?id=';
 var CALENDAR_MY_RESERVATIONS_ENDPOINT = '/s/calendar/reservations?id=';
-var DEFAULT_DESCRIPTION_LENGTH_CUTOFF = 30;
 var CALENDAR_RESOURCE_SEARCH_ENDPOINT = "/s/calendar/find?id=";
+var CALENDAR_RESOURCE_MY_RESOURCE_ENDPOINT = "/s/calendar/resource/";
+var CALENDAR_RESOURCE_MY_RESOURCES_ENDPOINT = "/s/calendar/resources/";
+var DEFAULT_DESCRIPTION_LENGTH_CUTOFF = 30;
 // TODO deprecate this, not very i18n friendly
 var DEFAULT_TIME_FORMAT = {
     hour: '2-digit',
@@ -2397,6 +2399,7 @@ var CalendarBookOn;
 var CalendarDataProvider;
 (function (CalendarDataProvider) {
     CalendarDataProvider["Google"] = "google";
+    CalendarDataProvider["CalDAV"] = "cal_dav";
     CalendarDataProvider["None"] = "none";
 })(CalendarDataProvider || (CalendarDataProvider = {}));
 
@@ -2425,6 +2428,19 @@ var CalendarResourceOperatingHoursType;
     CalendarResourceOperatingHoursType["HasOperatingHours"] = "has_operating_hours";
 })(CalendarResourceOperatingHoursType || (CalendarResourceOperatingHoursType = {}));
 
+var CalendarViewType;
+(function (CalendarViewType) {
+    CalendarViewType["CalendarView"] = "CALENDAR_VIEW";
+    CalendarViewType["CalendarBook"] = "CALENDAR_BOOK";
+    CalendarViewType["CalendarExclusiveBook"] = "CALENDAR_EXCLUSIVE_BOOK";
+    CalendarViewType["DayView"] = "DAY_VIEW";
+    CalendarViewType["DayViewByLocation"] = "DAY_VIEW_BY_LOCATION";
+    CalendarViewType["DayList"] = "DAY_LIST";
+    CalendarViewType["List"] = "LIST";
+    CalendarViewType["MyEventsList"] = "MY_EVENT_LIST";
+    CalendarViewType["MapResourceList"] = "MAP_RESOURCE_LIST";
+})(CalendarViewType || (CalendarViewType = {}));
+
 var EventReservationStatus;
 (function (EventReservationStatus) {
     EventReservationStatus["Reserved"] = "reserved";
@@ -2438,24 +2454,44 @@ var GetEventsDuration;
     GetEventsDuration["WholeMonth"] = "WHOLE_MONTH";
 })(GetEventsDuration || (GetEventsDuration = {}));
 
+var toPublicResource = function (resource) {
+    return {
+        _id: resource._id,
+        createdAt: resource.createdAt,
+        updatedAt: resource.updatedAt,
+        calendarComponentId: resource.calendarComponentId,
+        shortId: resource.shortId,
+        name: resource.name,
+        media: resource.media,
+        description: resource.description,
+        timezone: resource.timezone,
+        quantityAvailable: resource.quantityAvailable,
+        moderation: resource.moderation,
+        ownerId: resource.ownerId,
+        ownerName: resource.ownerName,
+        ownerEmail: resource.ownerEmail,
+        staticPrice: resource.staticPrice,
+        staticPriceUnit: resource.staticPriceUnit,
+        staticPriceCurrency: resource.staticPriceCurrency,
+        approximateLocation: reducePointPrecision(resource.staticLocation),
+    };
+};
+var reducePointPrecision = function (point, precision) {
+    if (precision === void 0) { precision = 5; }
+    if (!point || !point.coordinates || !point.coordinates.length)
+        return undefined;
+    var coords = point.coordinates.map(function (v) { return parseFloat(v.toFixed(precision)); });
+    return {
+        type: point.type,
+        coordinates: coords,
+    };
+};
+
 var ReservationModeration;
 (function (ReservationModeration) {
     ReservationModeration["OPEN"] = "open";
     ReservationModeration["SUPER_ADMIN_MODERATED"] = "moderated";
 })(ReservationModeration || (ReservationModeration = {}));
-
-var CalendarViewType;
-(function (CalendarViewType) {
-    CalendarViewType["CalendarView"] = "CALENDAR_VIEW";
-    CalendarViewType["CalendarBook"] = "CALENDAR_BOOK";
-    CalendarViewType["CalendarExclusiveBook"] = "CALENDAR_EXCLUSIVE_BOOK";
-    CalendarViewType["DayView"] = "DAY_VIEW";
-    CalendarViewType["DayViewByLocation"] = "DAY_VIEW_BY_LOCATION";
-    CalendarViewType["DayList"] = "DAY_LIST";
-    CalendarViewType["List"] = "LIST";
-    CalendarViewType["MyEventsList"] = "MY_EVENT_LIST";
-    CalendarViewType["MapResourceList"] = "MAP_RESOURCE_LIST";
-})(CalendarViewType || (CalendarViewType = {}));
 
 var QueryOperator;
 (function (QueryOperator) {
@@ -2571,5 +2607,5 @@ var ViewComponentType;
 var style_cache = static_styles;
 var template_cache = static_templates;
 
-export { CALENDAR_BOOK_ENDPOINT, CALENDAR_CONFIG_ENDPOINT, CALENDAR_MY_RESERVATIONS_ENDPOINT, CALENDAR_RESOURCE_SEARCH_ENDPOINT, CalendarBookOn, CalendarBookingUnit, CalendarDataProvider, CalendarEventReservableUntilType, CalendarReservationPriceUnit, CalendarResourceOperatingHoursGrouping, CalendarResourceOperatingHoursType, CalendarViewType, DEFAULT_DESCRIPTION_LENGTH_CUTOFF, DEFAULT_HOST, DEFAULT_TIME_FORMAT, DataSourceFieldType, DataSourceType, EventReservationStatus, GetEventsDuration, HOUR_ONLY, PageTypes, PaginationStyle, QueryOperator, QueryType, ReservationModeration, SortBy, TableViewViewType, ViewComponentType, addDays, compareEventsByStartTime, formatReservationTimeFrame, formattedField, getDateInLocalTime, getEventTime, inferDataSourceFieldType, isDate, isEmail, isUri, minutesSinceMidnight, static_styles, static_templates, style_cache, template_cache };
+export { CALENDAR_BOOK_ENDPOINT, CALENDAR_CONFIG_ENDPOINT, CALENDAR_MY_RESERVATIONS_ENDPOINT, CALENDAR_RESOURCE_MY_RESOURCES_ENDPOINT, CALENDAR_RESOURCE_MY_RESOURCE_ENDPOINT, CALENDAR_RESOURCE_SEARCH_ENDPOINT, CalendarBookOn, CalendarBookingUnit, CalendarDataProvider, CalendarEventReservableUntilType, CalendarReservationPriceUnit, CalendarResourceOperatingHoursGrouping, CalendarResourceOperatingHoursType, CalendarViewType, DEFAULT_DESCRIPTION_LENGTH_CUTOFF, DEFAULT_HOST, DEFAULT_TIME_FORMAT, DataSourceFieldType, DataSourceType, EventReservationStatus, GetEventsDuration, HOUR_ONLY, PageTypes, PaginationStyle, QueryOperator, QueryType, ReservationModeration, SortBy, TableViewViewType, TimeUnit, ViewComponentType, addDays, compareEventsByStartTime, formatReservationTimeFrame, formattedField, getDateInLocalTime, getEventTime, inferDataSourceFieldType, isDate, isEmail, isUri, minutesSinceMidnight, reducePointPrecision, static_styles, static_templates, style_cache, template_cache, toPublicResource };
 //# sourceMappingURL=library.es.js.map

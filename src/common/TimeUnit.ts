@@ -1,4 +1,4 @@
-enum TimeUnit {
+export enum TimeUnit {
     SECONDLY = "s",
     MINUTELY = "m",
     HOURLY = "h",
@@ -7,5 +7,3 @@ enum TimeUnit {
     MONTHLY = "m",
     YEARLY = "y"
 }
-
-export default TimeUnit;
