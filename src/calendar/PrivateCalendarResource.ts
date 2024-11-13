@@ -1,6 +1,6 @@
 import { CalendarBookOn } from "./CalendarBookOn";
 import { CalendarResource } from "./CalendarResource";
-import { Point, TimeUnit } from "../common";
+import { AuthenticatedIdentity, Point, TimeUnit } from "../common";
 import { CalendarResourceOperatingHoursGrouping } from "./CalendarResourceOperatingHoursGrouping";
 import { CalendarEventReservableUntilType } from "./CalendarEventReservableUntilType";
 import { CalendarResourceOperatingHoursType } from "./CalendarResourceOperatingHoursType";
@@ -11,6 +11,11 @@ import { CalendarReservationFrame } from "./CalendarReservationFrame";
 export interface PrivateCalendarResource extends CalendarResource {
     provider: CalendarDataProvider; // google, etc
     providerId: string; // provider's calendar identifier
+    providerHost: string;
+    providerPassHash: string;
+    providerPassHashIv: string; // for aes encryption, internal use
+    providerPassHashTag: string; // for aes encryption, internal use
+
     ownerAuthId: string; // used if the calendar is managed using authentication system
     status: string; // either "published" or "hidden"
     deleted: boolean; // soft-delete
@@ -27,9 +32,8 @@ export interface PrivateCalendarResource extends CalendarResource {
     maximumBookingDurationInMin: number;
     bookingIncrementsInMin: number;
 
-    staticLocation: Point; // lat, lng
+    staticLocation: Point; // lng, lat
     staticAddress: google.maps.places.PlaceResult;
-    // staticAddress: PostalAddress; --> make this
     // TODO pictures
 
     reservableUntilType: CalendarEventReservableUntilType;
@@ -53,7 +57,18 @@ export interface PrivateCalendarResource extends CalendarResource {
     generalOperatingHours: CalendarReservationFrame[];
 }
 
+export interface CalendarResourceFieldProperty {
+    enabled: boolean;
+}
+
 export const toPublicResource = (resource: PrivateCalendarResource) => {
+    const stripedIdentity = resource.ownerIdentity ? {
+        name: resource.ownerIdentity.name,
+        givenName: resource.ownerIdentity.givenName,
+        familyName: resource.ownerIdentity.familyName,
+        locale: resource.ownerIdentity.locale,
+        picture: resource.ownerIdentity.picture,
+    } as AuthenticatedIdentity : null;
     return {
         _id: resource._id,
         createdAt: resource.createdAt,
@@ -66,9 +81,13 @@ export const toPublicResource = (resource: PrivateCalendarResource) => {
         timezone: resource.timezone,
         quantityAvailable: resource.quantityAvailable,
         moderation: resource.moderation,
-        ownerId: resource.ownerId,
+        ownerId: resource.ownerId,  // IMPORTANT: probably need to remove this
         ownerName: resource.ownerName,
-        ownerEmail: resource.ownerEmail,
+        ownerEmail: resource.ownerEmail, // IMPORTANT: probably need to remove this
+        ownerIdentity: stripedIdentity,
+        locale: resource.locale,
+        currency: resource.currency,
+        customFields: resource.customFields,
         staticPrice: resource.staticPrice,
         staticPriceUnit: resource.staticPriceUnit,
         staticPriceCurrency: resource.staticPriceCurrency,

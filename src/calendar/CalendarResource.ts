@@ -2,7 +2,7 @@ import { ReservationModeration } from "./ReservationModeration";
 import { CalendarReservationPriceUnit } from "./CalendarReservationPriceUnit";
 import { Point } from "../common/Point";
 import { CalendarResourceMedia } from "./CalendarResourceMedia";
-import { UnifiedModel } from "../common";
+import { AuthenticatedIdentity, UnifiedModel } from "../common";
 
 export interface CalendarResource extends UnifiedModel {
     // ---- general info about the resource itself
@@ -19,9 +19,14 @@ export interface CalendarResource extends UnifiedModel {
     ownerId: string; // person who created this reservation, optional
     ownerName: string;
     ownerEmail: string;
+    ownerIdentity: AuthenticatedIdentity; // will be stripped down when called publicly
 
     staticPrice: number; // in whatever the local currency is. This is price for booking or increment.
     staticPriceUnit: CalendarReservationPriceUnit;
     staticPriceCurrency: string;
     approximateLocation: Point; // lng, lat
+
+    currency: string;
+    locale: string;
+    customFields: any;
 }

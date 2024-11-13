@@ -1,12 +1,14 @@
+import { PaymentProcessor, PaymentStatus } from "../commerce";
 import { UnifiedModel } from "../common";
+import { EventReservationPaymentIntentDetail } from "./EventReservationPaymentIntentDetail";
 import { EventReservationStatus } from "./EventReservationStatus";
 
 // each entry per each reservation
-export interface EventReservation extends UnifiedModel {
+export interface EventReservation extends UnifiedModel, EventReservationPaymentIntentDetail {
     eventId: string;
     reservationId: string; // uniquely identifies this reservation
     ownerId: string; // person who created this reservation, optional
-    ownerAuthId: string; // used if the calendar is managed using authentication system
+    ownerAuthId: string; // auth id of the person who created this reservation. used if the calendar is managed using authentication system
     ownerName: string;
     ownerEmail: string;
     calendarComponentId: string; // user friendly id
@@ -24,7 +26,6 @@ export interface EventReservation extends UnifiedModel {
     reservationCount: number; // how many spots this reservation covers
     seats: string[]; // array of seats this reservation contains.
     status: EventReservationStatus; // turn this into an enum, yeah?
-
-    // TODO payment info, payment status
-
+    paymentStatus: PaymentStatus;
+    paymentTransactionId: string;
 }

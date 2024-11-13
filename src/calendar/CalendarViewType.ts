@@ -7,5 +7,9 @@ export enum CalendarViewType {
   DayList = 'DAY_LIST',
   List = 'LIST',
   MyEventsList = 'MY_EVENT_LIST',
+  MyResourcesList = 'MY_RESOURCES_LIST',
+  MyReservationsList = 'MY_RESERVATIONS_LIST',
+  MyReservationRequestsList = 'MY_RESERVATION_REQUESTS_LIST',
+  ResourceDetail = 'RESOURCE_DETAIL',
   MapResourceList = 'MAP_RESOURCE_LIST',
 }
