@@ -1,7 +1,8 @@
-import { UnifiedModel } from "../common";
+import { TimeUnit, UnifiedModel } from "../common";
 import { BookableEvent } from "./BookableEvent";
 import { CalendarBookOn } from "./CalendarBookOn";
 import { CalendarBookingUnit } from "./CalendarBookingUnit";
+import { CalendarEventReservableUntilType } from "./CalendarEventReservableUntilType";
 import { CalendarReservationFrame } from "./CalendarReservationFrame";
 import { CalendarReservationPriceUnit } from "./CalendarReservationPriceUnit";
 import { CalendarResourceOperatingHoursGrouping } from "./CalendarResourceOperatingHoursGrouping";
@@ -41,5 +42,12 @@ export interface BookingResource extends UnifiedModel {
     operatingHoursByDay: {[dayOfWeek: number]: CalendarReservationFrame[]};
     generalOperatingHours: CalendarReservationFrame[];
     timezone: string;
-    processPastEvents: boolean;
+
+    reservableUntilType: CalendarEventReservableUntilType;
+    reservableUntil: number; // duration into the future to show calendar for, 0 for unlimited
+    reservableUntilUnit: TimeUnit;
+    reservableUntilInMin: number; // do not manually populate -- server auto calculates duration in quantities of minutes
+    availabilityStartTime: Date;
+    availabilityEndTime: Date;
+    processPastEvents: boolean; // if true, this resource and sync, process, and book events occurred in past
 }

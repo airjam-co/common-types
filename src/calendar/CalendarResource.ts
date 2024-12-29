@@ -2,7 +2,8 @@ import { ReservationModeration } from "./ReservationModeration";
 import { CalendarReservationPriceUnit } from "./CalendarReservationPriceUnit";
 import { Point } from "../common/Point";
 import { CalendarResourceMedia } from "./CalendarResourceMedia";
-import { AuthenticatedIdentity, UnifiedModel } from "../common";
+import { AuthenticatedIdentity, TimeUnit, UnifiedModel } from "../common";
+import { CalendarEventReservableUntilType } from "./CalendarEventReservableUntilType";
 
 export interface CalendarResource extends UnifiedModel {
     // ---- general info about the resource itself
@@ -25,6 +26,15 @@ export interface CalendarResource extends UnifiedModel {
     staticPriceUnit: CalendarReservationPriceUnit;
     staticPriceCurrency: string;
     approximateLocation: Point; // lng, lat
+
+    reservableUntilType: CalendarEventReservableUntilType;
+    reservableUntil: number; // duration into the future to show calendar for, 0 for unlimited
+    reservableUntilUnit: TimeUnit;
+    reservableUntilInMin: number; // do not manually populate -- server auto calculates duration in quantities of minutes
+    availabilityStartTime: Date;
+    availabilityEndTime: Date;
+    processPastEvents: boolean; // if true, this resource and sync, process, and book events occurred in past
+
 
     currency: string;
     locale: string;

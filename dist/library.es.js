@@ -2399,6 +2399,7 @@ var CalendarBookingUnit;
 (function (CalendarBookingUnit) {
     CalendarBookingUnit["Fixed"] = "fixed";
     CalendarBookingUnit["Flexible"] = "flexible";
+    CalendarBookingUnit["Daily"] = "daily";
 })(CalendarBookingUnit || (CalendarBookingUnit = {}));
 
 var CalendarBookOn;

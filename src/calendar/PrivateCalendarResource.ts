@@ -1,8 +1,7 @@
 import { CalendarBookOn } from "./CalendarBookOn";
 import { CalendarResource } from "./CalendarResource";
-import { AuthenticatedIdentity, Point, TimeUnit } from "../common";
+import { AuthenticatedIdentity, Point } from "../common";
 import { CalendarResourceOperatingHoursGrouping } from "./CalendarResourceOperatingHoursGrouping";
-import { CalendarEventReservableUntilType } from "./CalendarEventReservableUntilType";
 import { CalendarResourceOperatingHoursType } from "./CalendarResourceOperatingHoursType";
 import { CalendarDataProvider } from "./CalendarDataProvider";
 import { CalendarBookingUnit } from "./CalendarBookingUnit";
@@ -35,14 +34,6 @@ export interface PrivateCalendarResource extends CalendarResource {
     staticLocation: Point; // lng, lat
     staticAddress: google.maps.places.PlaceResult;
     // TODO pictures
-
-    reservableUntilType: CalendarEventReservableUntilType;
-    reservableUntil: number; // duration into the future to show calendar for, 0 for unlimited
-    reservableUntilUnit: TimeUnit;
-    reservableUntilInMin: number; // do not manually populate -- server auto calculates duration in quantities of minutes
-    availabilityStartTime: Date;
-    availabilityEndTime: Date;
-    processPastEvents: boolean; // if true, this resource and sync, process, and book events occurred in past
 
     bufferBeforeInMinutes: number;
     bufferAfterInMinutes: number;

@@ -2405,6 +2405,7 @@
     (function (CalendarBookingUnit) {
         CalendarBookingUnit["Fixed"] = "fixed";
         CalendarBookingUnit["Flexible"] = "flexible";
+        CalendarBookingUnit["Daily"] = "daily";
     })(exports.CalendarBookingUnit || (exports.CalendarBookingUnit = {}));
 
     exports.CalendarBookOn = void 0;
