@@ -25,6 +25,8 @@ export const clientEnUs: Translation = {
         "booking_modal_email_field_required": "Please enter a valid email address.",
         "booking_modal_notes_field": "Notes",
         "booking_modal_submit_button_label": "Book",
+        "select_a_resource_to_book": "Select a resource to book",
+        "no_resources_available": "No resources available",
         "free": "FREE",
         "redo_search_in_map": "Redo search in map",
         "create_button_label": "Create",

@@ -1,6 +1,7 @@
 export enum CalendarViewType {
   CalendarView = 'CALENDAR_VIEW',
   CalendarBook = 'CALENDAR_BOOK',
+  CalendarBookSelectResource = 'CALENDAR_BOOK_SELECT_RESOURCE',
   CalendarExclusiveBook = 'CALENDAR_EXCLUSIVE_BOOK',
   DayView = 'DAY_VIEW',
   DayViewByLocation = 'DAY_VIEW_BY_LOCATION',

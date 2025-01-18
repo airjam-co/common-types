@@ -2316,6 +2316,7 @@ var static_templates = {
 var AppointmentViewType;
 (function (AppointmentViewType) {
     AppointmentViewType["CalendarBook"] = "CALENDAR_BOOK";
+    AppointmentViewType["CalendarBookSelectResource"] = "CALENDAR_BOOK_SELECT_RESOURCE";
     AppointmentViewType["DayBook"] = "DAY_BOOK";
     AppointmentViewType["ListBook"] = "LIST_BOOK";
 })(AppointmentViewType || (AppointmentViewType = {}));
@@ -2441,6 +2442,8 @@ var clientEnUs = {
         "booking_modal_email_field_required": "Please enter a valid email address.",
         "booking_modal_notes_field": "Notes",
         "booking_modal_submit_button_label": "Book",
+        "select_a_resource_to_book": "Select a resource to book",
+        "no_resources_available": "No resources available",
         "free": "FREE",
         "redo_search_in_map": "Redo search in map",
         "create_button_label": "Create",
@@ -2574,6 +2577,8 @@ var clientKoKr = {
         "booking_modal_notes_field": "추가 정보",
         "booking_modal_submit_button_label": "예약하기",
         "free": "무료",
+        "select_a_resource_to_book": "Select a resource to book",
+        "no_resources_available": "No resources available",
         "redo_search_in_map": "다시검색",
         "create_button_label": "작성",
         "update_button_label": "수정",
@@ -2786,6 +2791,14 @@ var CALENDAR_DEFAULT_TRANSLATIONS = {
         "booking_modal_submit_button_label": {
             description: "Submit button for book reservation modal",
             example: "Book",
+        },
+        "select_a_resource_to_book": {
+            description: "Text for selecting a resource to book",
+            example: "Select a resource to book",
+        },
+        "no_resources_available": {
+            description: "Text for showing that there are no resources available",
+            example: "No resources available",
         },
         "free": {
             description: "text for showing that the item is free of cost",
@@ -3256,6 +3269,7 @@ var CalendarViewType;
 (function (CalendarViewType) {
     CalendarViewType["CalendarView"] = "CALENDAR_VIEW";
     CalendarViewType["CalendarBook"] = "CALENDAR_BOOK";
+    CalendarViewType["CalendarBookSelectResource"] = "CALENDAR_BOOK_SELECT_RESOURCE";
     CalendarViewType["CalendarExclusiveBook"] = "CALENDAR_EXCLUSIVE_BOOK";
     CalendarViewType["DayView"] = "DAY_VIEW";
     CalendarViewType["DayViewByLocation"] = "DAY_VIEW_BY_LOCATION";

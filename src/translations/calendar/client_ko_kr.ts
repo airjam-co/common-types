@@ -26,6 +26,8 @@ export const clientKoKr: Translation = {
         "booking_modal_notes_field": "추가 정보",
         "booking_modal_submit_button_label": "예약하기",
         "free": "무료",
+        "select_a_resource_to_book": "Select a resource to book",
+        "no_resources_available": "No resources available",
         "redo_search_in_map": "다시검색",
         "create_button_label": "작성",
         "update_button_label": "수정",

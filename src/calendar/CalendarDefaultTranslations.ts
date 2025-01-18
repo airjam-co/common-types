@@ -95,6 +95,14 @@ export const CALENDAR_DEFAULT_TRANSLATIONS: ComponentTranslation = {
             description: "Submit button for book reservation modal",
             example: "Book",
         },
+        "select_a_resource_to_book": {
+            description: "Text for selecting a resource to book",
+            example: "Select a resource to book",
+        },
+        "no_resources_available": {
+            description: "Text for showing that there are no resources available",
+            example: "No resources available",
+        },
         "free": {
             description: "text for showing that the item is free of cost",
             example: "FREE",
