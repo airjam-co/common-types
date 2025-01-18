@@ -8,5 +8,6 @@ export * from "./appointment";
 export * from "./calendar";
 export * from "./commerce";
 export * from "./common";
+export * from "./messaging";
 export * from "./table_view";
 export * from "./view";
