@@ -3520,13 +3520,13 @@
         return !isNaN(new Date(dateStr).getDate());
     }
 
-    var RoomJoinRules;
+    exports.RoomJoinRules = void 0;
     (function (RoomJoinRules) {
         RoomJoinRules["Public"] = "public";
         RoomJoinRules["Knock"] = "knock";
         RoomJoinRules["Invite"] = "invite";
         RoomJoinRules["Private"] = "private";
-    })(RoomJoinRules || (RoomJoinRules = {}));
+    })(exports.RoomJoinRules || (exports.RoomJoinRules = {}));
 
     function inferDataSourceFieldType(data) {
         // in the order of uniqueness -> Email, Link, DateTime, (Currency, Percent, Number), Text
