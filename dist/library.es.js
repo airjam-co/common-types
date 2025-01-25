@@ -3514,39 +3514,13 @@ function isDate(dateStr) {
     return !isNaN(new Date(dateStr).getDate());
 }
 
-var ChatType;
-(function (ChatType) {
-    ChatType["DirectMessaging"] = "dm";
-    ChatType["GroupMessaging"] = "gm";
-    ChatType["OpenChannel"] = "oc";
-    // TODO: add things like reddit style groups, ephemeral groups, etc
-})(ChatType || (ChatType = {}));
-
-var ChatVisibility;
-(function (ChatVisibility) {
-    ChatVisibility["Open"] = "open";
-    ChatVisibility["ClosedList"] = "closed";
-    ChatVisibility["ProtectedPassword"] = "pp";
-    // TODO: add things like reddit style groups, ephemeral groups, etc
-})(ChatVisibility || (ChatVisibility = {}));
-
-var MessageContentType;
-(function (MessageContentType) {
-    MessageContentType["Text"] = "text";
-    MessageContentType["System"] = "system";
-    MessageContentType["Image"] = "image";
-    MessageContentType["Link"] = "link";
-    MessageContentType["Video"] = "video";
-    MessageContentType["Audio"] = "audio";
-    MessageContentType["File"] = "file";
-    // TODO: add things like share link, VR, etc
-})(MessageContentType || (MessageContentType = {}));
-
-var MessageStatus;
-(function (MessageStatus) {
-    MessageStatus["Redacted"] = "redacted";
-    MessageStatus["Vaulted"] = "vaulted";
-})(MessageStatus || (MessageStatus = {}));
+var RoomJoinRules;
+(function (RoomJoinRules) {
+    RoomJoinRules["Public"] = "public";
+    RoomJoinRules["Knock"] = "knock";
+    RoomJoinRules["Invite"] = "invite";
+    RoomJoinRules["Private"] = "private";
+})(RoomJoinRules || (RoomJoinRules = {}));
 
 function inferDataSourceFieldType(data) {
     // in the order of uniqueness -> Email, Link, DateTime, (Currency, Percent, Number), Text
@@ -3599,5 +3573,5 @@ var ViewComponentType;
 var style_cache = static_styles;
 var template_cache = static_templates;
 
-export { AppointmentViewType, CALENDAR_BOOK_ENDPOINT, CALENDAR_CONFIG_ENDPOINT, CALENDAR_DEFAULT_TRANSLATIONS, CALENDAR_DETAIL_ENDPOINT, CALENDAR_MY_RESERVATIONS_ENDPOINT, CALENDAR_RESOURCE_MY_RESERVATIONS_ENDPOINT, CALENDAR_RESOURCE_MY_RESERVATION_REQUESTS_ENDPOINT, CALENDAR_RESOURCE_MY_RESOURCES_ENDPOINT, CALENDAR_RESOURCE_MY_RESOURCE_ENDPOINT, CALENDAR_RESOURCE_RESERVATION_ENDPOINT, CALENDAR_RESOURCE_SEARCH_ENDPOINT, CALENDAR_TRANSLATIONS_ENDPOINT, CalendarBookOn, CalendarBookingUnit, CalendarDataProvider, CalendarEventReservableUntilType, CalendarReservationPriceUnit, CalendarResourceOperatingHoursGrouping, CalendarResourceOperatingHoursType, CalendarViewType, ChatType, ChatVisibility, CssTheme, DEFAULT_DESCRIPTION_LENGTH_CUTOFF, DEFAULT_HOST, DEFAULT_TIME_FORMAT, DataJurisdiction, DataSourceFieldType, DataSourceType, EventReservationStatus, GetEventsDuration, HOUR_ONLY, MessageContentType, MessageStatus, PageTypes, PaginationStyle, PaymentProcessor, PaymentStatus, QueryOperator, QueryType, ReservationModeration, SortBy, TableViewViewType, TimeUnit, ViewComponentType, addDays, compareEventsByStartTime, formatReservationTimeFrame, formattedField, getClientMessage, getDateInLocalTime, getEventTime, getTranslation, inferDataSourceFieldType, isDate, isEmail, isUri, mergeTranslation, minutesSinceMidnight, negotiateLocale, reducePointPrecision, static_styles, static_templates, stripLanguageOnly, style_cache, template_cache, toPublicResource };
+export { AppointmentViewType, CALENDAR_BOOK_ENDPOINT, CALENDAR_CONFIG_ENDPOINT, CALENDAR_DEFAULT_TRANSLATIONS, CALENDAR_DETAIL_ENDPOINT, CALENDAR_MY_RESERVATIONS_ENDPOINT, CALENDAR_RESOURCE_MY_RESERVATIONS_ENDPOINT, CALENDAR_RESOURCE_MY_RESERVATION_REQUESTS_ENDPOINT, CALENDAR_RESOURCE_MY_RESOURCES_ENDPOINT, CALENDAR_RESOURCE_MY_RESOURCE_ENDPOINT, CALENDAR_RESOURCE_RESERVATION_ENDPOINT, CALENDAR_RESOURCE_SEARCH_ENDPOINT, CALENDAR_TRANSLATIONS_ENDPOINT, CalendarBookOn, CalendarBookingUnit, CalendarDataProvider, CalendarEventReservableUntilType, CalendarReservationPriceUnit, CalendarResourceOperatingHoursGrouping, CalendarResourceOperatingHoursType, CalendarViewType, CssTheme, DEFAULT_DESCRIPTION_LENGTH_CUTOFF, DEFAULT_HOST, DEFAULT_TIME_FORMAT, DataJurisdiction, DataSourceFieldType, DataSourceType, EventReservationStatus, GetEventsDuration, HOUR_ONLY, PageTypes, PaginationStyle, PaymentProcessor, PaymentStatus, QueryOperator, QueryType, ReservationModeration, SortBy, TableViewViewType, TimeUnit, ViewComponentType, addDays, compareEventsByStartTime, formatReservationTimeFrame, formattedField, getClientMessage, getDateInLocalTime, getEventTime, getTranslation, inferDataSourceFieldType, isDate, isEmail, isUri, mergeTranslation, minutesSinceMidnight, negotiateLocale, reducePointPrecision, static_styles, static_templates, stripLanguageOnly, style_cache, template_cache, toPublicResource };
 //# sourceMappingURL=library.es.js.map

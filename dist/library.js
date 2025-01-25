@@ -3520,39 +3520,13 @@
         return !isNaN(new Date(dateStr).getDate());
     }
 
-    exports.ChatType = void 0;
-    (function (ChatType) {
-        ChatType["DirectMessaging"] = "dm";
-        ChatType["GroupMessaging"] = "gm";
-        ChatType["OpenChannel"] = "oc";
-        // TODO: add things like reddit style groups, ephemeral groups, etc
-    })(exports.ChatType || (exports.ChatType = {}));
-
-    exports.ChatVisibility = void 0;
-    (function (ChatVisibility) {
-        ChatVisibility["Open"] = "open";
-        ChatVisibility["ClosedList"] = "closed";
-        ChatVisibility["ProtectedPassword"] = "pp";
-        // TODO: add things like reddit style groups, ephemeral groups, etc
-    })(exports.ChatVisibility || (exports.ChatVisibility = {}));
-
-    exports.MessageContentType = void 0;
-    (function (MessageContentType) {
-        MessageContentType["Text"] = "text";
-        MessageContentType["System"] = "system";
-        MessageContentType["Image"] = "image";
-        MessageContentType["Link"] = "link";
-        MessageContentType["Video"] = "video";
-        MessageContentType["Audio"] = "audio";
-        MessageContentType["File"] = "file";
-        // TODO: add things like share link, VR, etc
-    })(exports.MessageContentType || (exports.MessageContentType = {}));
-
-    exports.MessageStatus = void 0;
-    (function (MessageStatus) {
-        MessageStatus["Redacted"] = "redacted";
-        MessageStatus["Vaulted"] = "vaulted";
-    })(exports.MessageStatus || (exports.MessageStatus = {}));
+    var RoomJoinRules;
+    (function (RoomJoinRules) {
+        RoomJoinRules["Public"] = "public";
+        RoomJoinRules["Knock"] = "knock";
+        RoomJoinRules["Invite"] = "invite";
+        RoomJoinRules["Private"] = "private";
+    })(RoomJoinRules || (RoomJoinRules = {}));
 
     function inferDataSourceFieldType(data) {
         // in the order of uniqueness -> Email, Link, DateTime, (Currency, Percent, Number), Text
